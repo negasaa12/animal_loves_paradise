@@ -1,70 +1,97 @@
-# Getting Started with Create React App
+# Adoption App for Animal Lovers - Project Proposal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+## Project Focus
+Our primary focus lies in crafting an appealing and user-friendly front-end interface. We aim to ensure smooth navigation and interaction, prioritizing the user's experience throughout the adoption journey.
 
-### `npm start`
+## Application Type
+The "Adoption App for Animal Lovers" will be a responsive website, accessible across various devices. This ensures users can easily engage with the platform on their preferred devices.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Project Objectives
+Our project aims to achieve two primary objectives:
+1. Connect animal lovers with pets in need of homes.
+2. Create a platform that simplifies the adoption process, enhancing the lives of both animals and individuals seeking companionship.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Target Audience
+Our platform caters to a wide demographic of animal enthusiasts, spanning diverse age groups and backgrounds. The primary audience consists of individuals who are eager to adopt pets and are seeking a seamless and reliable adoption experience.
 
-### `npm test`
+## Data Strategy
+To populate the platform, we will utilize a PET API, gathering crucial data such as images, age, size, breed, names, and adoption availability status for animals. This comprehensive dataset will empower users to make informed decisions.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Project Approach
+### Database Schema
+We will design a structured schema with dedicated tables for animals. Key attributes like name, age, size, breed, and adoption availability will be integrated.
 
-### `npm run build`
+### API Challenges
+Challenges related to data quality, particularly regarding breed information, will be addressed through rigorous data validation and cleaning procedures.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Security Measures
+User-sensitive information, including passwords and personal details, will be securely stored using encryption techniques to ensure privacy.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Functionality
+The application will offer user registration, secure login, personalized profiles showcasing adopted pets, and an extensive catalog of available animals.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### User Experience
+Users will follow a seamless journey - from registration and login to exploring the animal catalog, applying filters, and ultimately selecting pets for adoption. Adopted pets will be featured in the user's profile.
 
-### `npm run eject`
+### Enhanced Features
+In addition to basic CRUD operations, our app will provide personalized profiles, adoption history tracking, and insights into the adoption process.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Conclusion
+The "Adoption App for Animal Lovers" project amalgamates compassion with technology. By harnessing the capabilities of React and Node.js, we aim to build an impactful platform that transcends functionality, delivering a transformative experience for both animals and their future owners. We embark on this journey with excitement, ready to create a positive change in the world of pet adoption.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Schema Design for Adoption Website
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## User Table
 
-### Code Splitting
+- **Primary Key**: UserID
+- **Columns**:
+  - UserID (Primary Key)
+  - Username
+  - Email
+  - Password
+  - ProfilePicture
+  - Location
+  - Contact Information
+  - API Key/Token
+  - Role (User, Admin, etc.)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Pet Table
 
-### Analyzing the Bundle Size
+- **Primary Key**: PetID
+- **Columns**:
+  - PetID (Primary Key)
+  - Name
+  - Type (e.g., dog, cat, bird)
+  - Breed
+  - Age
+  - Size
+  - Description
+  - Photos (possibly as references to image files)
+  - Contact
+  - Availability for Adoption (Boolean)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+## User-Pet Relationship Table (Favorites, Adoption History, etc.)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- **Primary Key**: InteractionID
+- **Columns**:
+  - InteractionID (Primary Key)
+  - UserID (Foreign Key referencing User.UserID)
+  - PetID (Foreign Key referencing Pet.PetID)
+  - InteractionType (e.g., Favorite, Adoption)
+  - Timestamp
 
-### Advanced Configuration
+### Schema Overview
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- The User and Pet tables have primary keys (UserID and PetID, respectively).
+- The User-Pet Relationship table is used to establish many-to-many relationships between users and pets. It has foreign keys referencing both the User and Pet tables, allowing you to track interactions like favorites and adoption history.
+- You can use the InteractionType column to distinguish between different types of interactions (e.g., favorite or adoption).
+- Timestamps can be used to track when these interactions occurred.
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This is a simplified textual representation. To create a visual representation using Crow's Foot notation, you would typically use specialized database design software or draw it out on paper or a digital drawing tool. The relationships in Crow's Foot notation would involve lines connecting the tables with crow's foot symbols at the ends indicating the "many" side of the relationship.
