@@ -1,7 +1,7 @@
 const express = require("express");
 const ExpressError = require("./expressError");
 const middleware = require("./middleware");
-
+const {autheticateJWT} = require("./middleware")
 
 const uRoutes = require("./routes/users");
 const auth =  require("./routes/auth");
@@ -11,7 +11,7 @@ app.use(express.json());
 
 
 app.use(middleware.logger);
-
+app.use(autheticateJWT);
 app.use("/users", uRoutes)
 app.get("/favico.ico", (req,res)=> res.sendStatus(204));
 app.use(auth);
@@ -37,6 +37,3 @@ app.use(function (err, req,res,next){
 });
 
 module.exports = app;
-// app.listen(3000, function(){
-//     console.log("App on Port 3000");
-// })

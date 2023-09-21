@@ -8,6 +8,8 @@ const bcrypt = require("bcrypt");
 const { json } = require("express");
 const jwt = require("jsonwebtoken")
 const {BYCRYPT_WORK_FACTOR , SECRET_KEY} = require("../config");
+const {ensuredLoggedIn} = require("../middleware")
+
 
 router.post("/register", async (req, res, next) => {
     try {

@@ -1,0 +1,18 @@
+{
+    "type": "object",
+    "properties": {
+      "petId": { "type": "integer" },
+      "Name": { "type": "string", "minLength": 1 },
+      "email": { "type": "string", "minLength": 1, "maxLength": 255 },
+      "breed": { "type": "string", "minLength": 1 },
+      "age": { "type": "integer" },
+      "size": { "type": "string" },
+      "gender": { "type": "string" },
+      "type": { "type": "string" },
+      "description": { "type": "string" },
+      "photo": { "type": "string" },
+      "adopted": { "type": "boolean", "default": false }
+    },
+    "required": ["petId", "Name", "email", "breed", "age", "size", "gender", "type", "description", "photo"]
+  }
+  
