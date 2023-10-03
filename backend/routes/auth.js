@@ -8,8 +8,7 @@ const bcrypt = require("bcrypt");
 const { json } = require("express");
 const jwt = require("jsonwebtoken")
 const {BYCRYPT_WORK_FACTOR , SECRET_KEY} = require("../config");
-const {ensuredLoggedIn} = require("../middleware")
-
+const {ensuredLoggedIn, authenticateJWT} = require("../middleware")
 
 router.post("/register", async (req, res, next) => {
     try {
@@ -20,13 +19,13 @@ router.post("/register", async (req, res, next) => {
         if(!username || !password){
             throw new ExpressError("username and password required ", 400)
         }
-        const hashedPassword = await bcrypt.hash(password, BYCRYPT_WORK_FACTOR);
+        const hashedPassword = await bcrypt.hash(password,12);
 
         const results = await db.query(
             `
             INSERT INTO users (username, firstName, lastName, email, password, location, contact)
             VALUES ($1, $2, $3, $4, $5, $6, $7)
-            RETURNING username
+            RETURNING username, password
             `,
             [username, firstName, lastName, email, hashedPassword, location, contact]
         );
@@ -37,7 +36,7 @@ router.post("/register", async (req, res, next) => {
     }
 });
 
-router.post("/login" ,async (req,res,next)=>{
+router.post("/login" ,  async (req,res,next)=>{
 
         try{
 
@@ -46,8 +45,7 @@ router.post("/login" ,async (req,res,next)=>{
                 throw new ExpressError("Username and password required", 400);
             }
             const results =  await db.query(
-                `SELECT username, password
-                 FROM users
+                `SELECT * FROM users 
                  WHERE username = $1`,
                  [username]);
                  
@@ -55,7 +53,7 @@ router.post("/login" ,async (req,res,next)=>{
              if(user){
                 if(await  bcrypt.compare(password, user.password)){
                     const token = jwt.sign({username}, SECRET_KEY);
-                    return res.json({msg: "logged in", token})
+                    return res.json({msg: "logged in", token, user : user})
                 }
              }   
              throw new ExpressError("Invalid username/password", 400); 
@@ -64,6 +62,6 @@ router.post("/login" ,async (req,res,next)=>{
             return next(e)
         }
 })
-
+ 
 
 module.exports = router;

@@ -1,9 +1,8 @@
-DROP DATABASE IF EXISTS pet_adoption;
+DROP DATABASE IF EXISTS pet_adoption_test;
 
+CREATE DATABASE pet_adoption_test;
 
-CREATE DATABASE pet_adoption;
-
-\c pet_adoption
+\c pet_adoption_test
 
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS pets;

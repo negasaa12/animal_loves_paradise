@@ -1,17 +1,22 @@
 const express = require("express");
 const ExpressError = require("./expressError");
 const middleware = require("./middleware");
-const {autheticateJWT} = require("./middleware")
+const {authenticateJWT, ensuredLoggedIn} = require("./middleware")
+const cors = require("cors");
 
 const uRoutes = require("./routes/users");
+const petRoutes = require("./routes/pets");
 const auth =  require("./routes/auth");
 const app = express();
 
+app.use(cors())
 app.use(express.json());
 
 
 app.use(middleware.logger);
-app.use(autheticateJWT);
+
+
+app.use("/pets", petRoutes);
 app.use("/users", uRoutes)
 app.get("/favico.ico", (req,res)=> res.sendStatus(204));
 app.use(auth);

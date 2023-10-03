@@ -1,0 +1,86 @@
+
+.edit-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto; /* Allow the container to expand based on content */
+    background-color: #c1d1a7;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 400px; /* Set a maximum width for the container */
+    margin: 50px auto 0; /* Center horizontally and add top margin */
+  }
+  
+  /* Form heading style */
+  .edit-form-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Form styles */
+  .edit-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  /* Form input field style */
+  .form-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+  }
+  
+  /* Form label style */
+  .form-label {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  /* Form button styles */
+  .form-button {
+    padding: 10px 15px;
+    background-color: #7ea8d6;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+  }
+  
+  /* Error message style */
+  .error-message {
+    color: #ff0000;
+    font-size: 16px;
+    text-align: center;
+  }
+  
+  /* Success message style */
+  .success-message {
+    color: #4caf50;
+    font-size: 16px;
+    text-align: center;
+  }
+  
+  /* Media query for smaller screens */
+  @media screen and (max-width: 768px) {
+    /* Adjust styles for smaller screens */
+    .edit-form-container {
+      padding: 10px;
+    }
+  
+    .edit-form {
+      max-width: 100%;
+    }
+  }
+  

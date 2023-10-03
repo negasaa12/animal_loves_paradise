@@ -1,0 +1,67 @@
+
+/* Style for the entire container */
+.pet-list-container {
+    max-width: 100px; /* Adjust the max width as needed */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 20px;
+  }
+  
+  /* Style for the list of pets */
+  .pet-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid layout */
+    gap: 20px; /* Spacing between pet cards */
+  }
+  
+  /* Style for each pet card */
+  .pet-card {
+    background-color: #413131;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+  }
+  
+  .pet-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Style for pet image */
+  .pet-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  /* Style for pet name */
+  .pet-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  /* Style for pet description */
+  .pet-description {
+    font-size: 14px;
+    color: #777;
+  }
+  
+  /* Style for the "Save" button */
+  .save-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .save-button:hover {
+    background-color: #0056b3;
+  }
+  

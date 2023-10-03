@@ -1,0 +1,59 @@
+/* NavBar container styles */
+.nav-container {
+    background-color: #D4DBA7;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* List styles */
+  .nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* List item styles */
+  .nav-item {
+    margin-right: 20px;
+    list-style-type: none;
+    text-decoration: none;
+  }
+  
+  /* NavLink styles */
+  .nav-link {
+    text-decoration: none;
+    color: #fff;
+    padding: 5px;
+  }
+  
+  /* NavLink hover styles */
+  .nav-link:hover {
+    background-color: #a9c45e;
+    border-radius: 10px;
+  }
+  
+  /* Active NavLink styles */
+  .active {
+    background-color: #bfc291;
+    border-radius: 10px;
+  }
+  
+  /* Log Out button styles */
+  .nav-logout-button {
+    background-color: #D4DBA7;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Log Out button hover styles */
+  .nav-logout-button:hover {
+    background-color: #a9c45e;
+  }
+  
