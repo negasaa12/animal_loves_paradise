@@ -12,7 +12,6 @@ const DB_URI = (process.env.NODE_ENV === "test")
     module.exports = {
         DB_URI,
         SECRET_KEY,
-        BCRYPT_WORK_FACTOR,
-        petfinderApiKey: "OzNeRCuHnTyXKrq8vt1TTSxLNnZZDUnk8H2TlV8QbBVi9ODpKI",
-        petfinderApiSecret: "lFFzhZSKtmr4jp3ScOZoO0iVSSrX0PN0pPdrbsnY"
+        BCRYPT_WORK_FACTOR
+       
     }
