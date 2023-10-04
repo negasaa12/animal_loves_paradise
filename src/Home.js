@@ -2,26 +2,22 @@
 
 import React from "react";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
+
+const Home = () => {
+  return (
+    <>
+      <h1>Cat & Dog Love</h1>
+      <div>
+        <Link to="/pets/dog">Dogs</Link>
+        <Link to="/pets/cat">Cats</Link>
+      </div>
+    </>
+  );
+};
+
+export default Home;
 
 
-const Home =  () =>{
-
-     
-
-
-    return (
-        <>
-        <h1>Animal Lover Paradise</h1>
-
-
-        <div> 
-        <a href="/pets/dog">Dogs</a>
-        <a href="/pets/cat">Cats</a>
-
-        </div>
-        </>
-
-    )
-}
-
-export default Home ;

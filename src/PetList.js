@@ -46,7 +46,7 @@ const PetList = ({ currentUser }) => {
             const { name, age, size, gender, photos, type, description, breeds, status } = petDetails;
             const primaryBreed = breeds ? breeds.primary : null;
             const mediumPhoto = photos.length === 0 ? "none":photos[0].medium  ;
-            const noDescripition = description === null ? "none": description;
+            const noDescripition = description === null ? "no description": description;
             const petData = {
               name,
               age,

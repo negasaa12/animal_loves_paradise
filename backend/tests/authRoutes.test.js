@@ -38,7 +38,7 @@ afterAll(async () => {
   });
 
 
-
+// Register User
 describe('POST /register', () => {
   const plainPassword = 'testpassword';
   const userObject = {
@@ -79,11 +79,10 @@ describe('POST /register', () => {
       location: 'New York',
       contact: '123-456-7890',
     });
-    // Add your assertions for the missing username or password scenario here
   });
 });
 
-
+//Login User 
 describe("POST /login", function(){
 
     test("return logged in msg", async function(){
@@ -99,6 +98,46 @@ describe("POST /login", function(){
 
         expect(response.status).toBe(400);
     })
+
+    test("return logged in msg with a valid JWT token", async function(){
+      const response = await request(app).post("/login").send({username: "testuser", password: "secret"});
+  
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual(expect.objectContaining({token: expect.any(String)}));
+  
+      // Extract the token from the response body
+      const { token } = response.body;
+  
+      // Verify the token
+      try {
+          const decodedToken = jwt.verify(token, SECRET_KEY); 
+          expect(decodedToken).toHaveProperty('username', 'testuser'); // Verify the payload properties
+          // Add more assertions if needed
+      } catch (error) {
+          // If verification fails, the test will fail
+          throw new Error('JWT verification failed: ' + error.message);
+      }
+  });
+  
+  test('fails with invalid JWT signature', async () => {
+    // Create a tampered or invalid JWT token (e.g., changing a character in the signature)
+    const tamperedToken = 'invalid.token.signature';
+
+    // Attempt to verify the tampered token
+    try {
+      const decodedToken = jwt.verify(tamperedToken, "no"); // Replace 'your-secret-key' with your actual JWT secret key
+      // If the verification succeeds, the test should fail
+      expect(decodedToken).toBeUndefined(); 
+    } catch (error) {
+      // If verification fails, it should throw an error, and the test should pass
+      expect(error).toBeInstanceOf(jwt.JsonWebTokenError);
+      expect(error.message).toBe('invalid token');
+    }
+  });
+    
+
+  
 });
+
 
 

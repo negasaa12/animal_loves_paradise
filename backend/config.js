@@ -12,6 +12,6 @@ const DB_URI = (process.env.NODE_ENV === "test")
     module.exports = {
         DB_URI,
         SECRET_KEY,
-        BCRYPT_WORK_FACTOR
-       
+        BCRYPT_WORK_FACTOR,
+        "asdasdsadsadasdasda"
     }
