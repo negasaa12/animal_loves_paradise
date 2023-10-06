@@ -6,7 +6,7 @@ const petSchema = require("../schemas/petsSchema.json");
 const axios = require("axios");
 const bcrypt = require('bcrypt'); // For password hashing
 const {searchPets, getAccessToken} = require("../petfinderservice");
-const { ensuredLoggedIn , authenticateJWT} = require("../middleware");
+const { ensuredLoggedIn , authenticateJWT, authenticateJWTQuery, ensuredLoggedInQuery} = require("../middleware");
 
 router.get("/",  async (req,res,next) =>{
     try {
@@ -26,16 +26,16 @@ router.get("/",  async (req,res,next) =>{
 
 
 // Backend route to get a user's favorite pets
-router.get("/:userID/favpets",   async (req, res, next) => {
+router.get("/:userID/favpets", authenticateJWTQuery, ensuredLoggedInQuery,  async (req, res, next) => {
   try {
     const { userID } = req.params;
-    console.log("REQUEST BODY IN SERVIER ROUTE", req.body);
+    console.log("REQUEST QUERY IN SERVIER ROUTE", req.query, userID);
     // Query the database to retrieve adopted pets for the specified user
     const results = await db.query(
-      "SELECT pets.* FROM pets JOIN User_Pet_Relationship ON pets.petId = User_Pet_Relationship.PetID WHERE User_Pet_Relationship.UserID = $1 AND User_Pet_Relationship.InteractionType = 'Adoption'",
+      "SELECT pets.* FROM pets JOIN User_Pet_Relationship ON pets.petid = User_Pet_Relationship.petid WHERE User_Pet_Relationship.userid = $1 AND User_Pet_Relationship.InteractionType = 'Adoption'",
       [userID]
     );
-
+        console.log(results.rows);
     if (results.rows.length === 0) {
       // If no pets are found, throw an error
       return res.status(404).json({ error: "Can't find any favorite pets for the user." });
@@ -70,6 +70,8 @@ router.get("/type/:type",  async (req,res,next)=>{
         return next(e)
     }
 })
+
+
 router.get("/id/:id", async (req, res, next) => {
   try {
     const accessToken = await getAccessToken();
@@ -102,7 +104,7 @@ router.get("/id/:id", async (req, res, next) => {
 
 
 
-router.post("/add",   async (req, res, next) => {
+router.post("/add", authenticateJWT, ensuredLoggedIn,   async (req, res, next) => {
   try {
     // Validate the request body against the userSchema
     const petPending = jsonSchema.validate(req.body, petSchema);
@@ -112,18 +114,20 @@ router.post("/add",   async (req, res, next) => {
       return res.status(400).json({ error: "Invalid data", details: petPending.errors });
     }
 
-    const { name, breed, age, size, gender, type, description, photo, adopted, userId } = req.body;
-
+    const { name, breed, age, size, gender, type, description, photo, adopted, user } = req.body;
+    const userid = user.userid;
+    console.log("USER ID FOR PET TO BE ADDED", userid);
     const petResult = await db.query(
-      "INSERT INTO pets ( name, breed, age, size, gender, type, description, photo, adopted) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING name, breed, age",
+      "INSERT INTO pets ( name, breed, age, size, gender, type, description, photo, adopted) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING petid ,name,  breed, age",
       [ name, breed, age, size, gender, type, description, photo, adopted]
     );
 
     const petId = petResult.rows[0].petid;
       const pet = petResult.rows[0];
+      console.log("THIS IS PET ID ", petId);
     await db.query(
       "INSERT INTO User_Pet_Relationship (UserID, PetID, InteractionType) VALUES ($1, $2, $3)",
-      [userId, petId, 'Adoption']
+      [userid, petId, 'Adoption']
     );
 
     return res.status(201).json({ message: 'Pet added successfully', pet });

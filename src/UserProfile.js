@@ -19,12 +19,14 @@ const UserProfile = ({ userInfo }) => {
   const fetchFavePets = async (userid) => {
     const {user, token} = userInfo;
       console.log( "USER",user)
+      const SomeData = {token};
     try {
       const response = await axios.get(`http://localhost:3002/pets/${userid}/favpets`, {
-        data: {
-          token: userInfo.token,
-        },
-      });
+          params : {token, user}
+
+      }   
+        
+      );
   
   
       

@@ -40,11 +40,15 @@
     ]
   },
   "jest": {
+    "moduleNameMapper": {
+    "axios": "axios/dist/node/axios.cjs"
+    },
     "transform": {
-      "^.+\\.jsx?$": "babel-jest"
+    "^.+\\.jsx?$": "babel-jest"
     }
   },
   "devDependencies": {
     "babel-jest": "^29.7.0"
   }
 }
+

@@ -13,5 +13,6 @@ const DB_URI = (process.env.NODE_ENV === "test")
         DB_URI,
         SECRET_KEY,
         BCRYPT_WORK_FACTOR,
-        "asdasdsadsadasdasda"
+        petfinderApiKey: "YOUR API KEY",
+        petfinderApiSecret:  "YOUR API SECRET"
     }

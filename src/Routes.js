@@ -10,14 +10,20 @@ import LoginForm from "./LoginForm";
 import UserProvider, {useUser} from "./UserContext";
 import { useNavigate } from "react-router-dom";
 import EditForm from "./EditForm";
+import NotFound from "./NotFound";
+import AuthGuard from "./AuthGuard";
+
+
+
+
 const RoutePaths = () =>{
   
 
   const navigate = useNavigate()
   const [currentUser, setUser] = useState(() => {
     const storedUser = localStorage.getItem('currentUser');
-    
-    return storedUser !== "undefined"? JSON.parse([storedUser]) : null;
+        return storedUser ? JSON.parse(storedUser) : null;
+
   });
 
   useEffect(() => {
@@ -110,8 +116,18 @@ const loginUser = async (username, password) => {
             <Route></Route>
             <Route exact path="/register" element={<RegisterForm onRegister={handleUserRegistration}/>}></Route>
             <Route exact path="/login" element={<LoginForm onLogin={loginUser}/>}></Route>
-            <Route exact path="/profile" element={<UserProfile userInfo={currentUser}/> }></Route>
+            <Route
+          path="/profile"
+          element={
+            <AuthGuard userInfo={currentUser}>
+              <UserProfile userInfo={currentUser} />
+            </AuthGuard>
+          }
+        />
+       
+      
             <Route exact path="/profile/edit" element={<EditForm   onEdit={handleEditForm}userData={currentUser}/> }></Route>
+            <Route path="*" element={<NotFound/>}></Route>
         </Routes>
 
         </>
