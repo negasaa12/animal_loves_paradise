@@ -53,7 +53,12 @@ router.post("/login" ,  async (req,res,next)=>{
              if(user){
                 if(await  bcrypt.compare(password, user.password)){
                     const token = jwt.sign({username}, SECRET_KEY);
-                    return res.json({msg: "logged in", token, user : user})
+                    return res.json({msg: "logged in", token, user :{
+                        userid : user.userid,
+                        username: user.username,
+                        firstname : user.firstname,
+                        lastname : user.firstname
+                    }})
                 }
              }   
              throw new ExpressError("Invalid username/password", 400); 

@@ -47,6 +47,10 @@
     "adopted": {
       "type": "string",
       "description": "The adoption status of the pet."
+    },
+    "contact": {
+      "type": "string",
+      "description": "The Contact  information of the Pet"
     }
   },
   "required": ["name", "breed", "age", "size", "gender", "type"]

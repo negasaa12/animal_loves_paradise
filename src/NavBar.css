@@ -1,6 +1,6 @@
 /* NavBar container styles */
 .nav-container {
-    background-color: #D4DBA7;
+    background-color: #618264;
     padding: 10px;
     display: flex;
     justify-content: center;
@@ -18,7 +18,7 @@
   
   /* List item styles */
   .nav-item {
-    margin-right: 20px;
+    margin-right: 150px;
     list-style-type: none;
     text-decoration: none;
   }
@@ -28,18 +28,38 @@
     text-decoration: none;
     color: #fff;
     padding: 5px;
+    font-size: 25px;
   }
   
   /* NavLink hover styles */
   .nav-link:hover {
-    background-color: #a9c45e;
+    text-decoration: none;
+    background-color: #c7b239;
     border-radius: 10px;
+    color: #fff;
   }
-  
+
+
+
+  .nav-link-dropdown {
+    text-decoration: none !important;
+    color: #fff;
+    display: inline-block;
+    font-size: 20px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+  }
+
+  .nav-link-dropdown:hover {
+    text-decoration: none;
+    background-color: #c7b239;
+    border-radius: 10px;
+    color: #448859;
+  }
   /* Active NavLink styles */
   .active {
     background-color: #bfc291;
-    border-radius: 10px;
+    border-radius: 11px;
   }
   
   /* Log Out button styles */
@@ -50,10 +70,48 @@
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 25px;
   }
   
   /* Log Out button hover styles */
   .nav-logout-button:hover {
-    background-color: #a9c45e;
+    background-color: #dfb11c;
   }
   
+  /* Dropdown container styles */
+.nav-dropdown {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 25px;
+}
+
+/* Dropdown content styles */
+.nav-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #D4DBA7;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  margin-top: 10px;
+}
+
+/* Dropdown content when open */
+.nav-dropdown-open {
+  display: block;
+}
+
+/* Style the individual links in the dropdown */
+.nav-dropdown-content .nav-link {
+  padding: 10px;
+  text-decoration: none;
+  color: #fff;
+  display: block;
+}
+
+/* Style the links on hover */
+.nav-dropdown-content .nav-link:hover {
+  background-color: #665c26;
+  border-radius: 10px;
+}

@@ -31,6 +31,7 @@ CREATE TABLE pets
     type TEXT NOT NULL,
     description TEXT DEFAULT 'none',
     photo TEXT ,
+    contact TEXT,
     adopted TEXT
 );
 

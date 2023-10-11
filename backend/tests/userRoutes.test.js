@@ -88,7 +88,7 @@ describe("POST /users", ()=>{
 
 
   test('Create a single user', async () => {
-    const plainPassword = 'testpassword'; // Use a consistent plaintext password
+    const plainPassword = 'testpassword'; 
     const hashedPassword = await bcrypt.hash(plainPassword, 10); // Hash with the same salt rounds
   
     try {
@@ -97,7 +97,7 @@ describe("POST /users", ()=>{
         firstName: 'Test',
         lastName: 'User',
         email: 'test@example.com',
-        password: plainPassword, // Use the consistent plaintext password
+        password: plainPassword, 
         location: 'Test City',
         contact: 'testcontact',
       });

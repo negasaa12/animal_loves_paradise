@@ -3,12 +3,19 @@ import { useState, useEffect } from "react";
 import Pet from "./Pet";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import "./PetList.css";
+import defaultPhoto from "./images/animalPhoto.webp";
+
+
 
 const PetList = ({ currentUser }) => {
     const [pets, setPets] = useState([]);
     const [saveMessage, setSaveMessage] = useState(null); // State for displaying save status message
     const {type} = useParams();
-    console.log(type);
+   
+
+
+
     useEffect(() => {
       const fetchPets = async (type) => {
         try {
@@ -24,8 +31,13 @@ const PetList = ({ currentUser }) => {
           console.log("Error, fetching pets", e);
         }
       };
+
+        
       fetchPets(type);
-    }, [type]); // Pass an empty dependency array to useEffect for one-time data fetching
+    }, [type]);
+
+
+
   
     const handlePetButtonClick = async (petId) => {
       
@@ -43,10 +55,11 @@ const PetList = ({ currentUser }) => {
             const response = await axios.get(`http://localhost:3002/pets/id/${petId}`);
             
             const petDetails = response.data.animal;
-            const { name, age, size, gender, photos, type, description, breeds, status } = petDetails;
+            const { name, age, size, gender, photos, type, description, breeds, status, contact } = petDetails;
             const primaryBreed = breeds ? breeds.primary : null;
-            const mediumPhoto = photos.length === 0 ? "none":photos[0].medium  ;
+            const mediumPhoto = photos.length === 0 ? defaultPhoto : photos[0].medium  ;
             const noDescripition = description === null ? "no description": description;
+            const noContact = contact.email === null ? "no contact" : contact.email;
             const petData = {
               name,
               age,
@@ -59,7 +72,8 @@ const PetList = ({ currentUser }) => {
               adopted: status,
               userId: userid,
               token,
-              user
+              user,
+              contact : noContact
           }
             console.log(petData);
             const savedPet = await axios.post("http://localhost:3002/pets/add", petData);
@@ -68,41 +82,54 @@ const PetList = ({ currentUser }) => {
   
         // Set a message to indicate that the pet has been saved
         setSaveMessage(`Pet "${name}" has been saved.`);
+        setTimeout(() => {
+          setSaveMessage(null);
+        }, 5000);
       } catch (e) {
         console.log(e);
         // Handle the error, e.g., display an error message
         setSaveMessage("Error saving the pet. Please try again later.");
+        
       }
     };
-  
-    return (
-      <>
-        <h1>Our Cuties</h1>
-        {saveMessage && <p>{saveMessage}</p>}
-        <div>
-          {pets.length === 0 ? (
-            <p>Loading ...</p>
-          ) : (
-            pets.map((pet) => (
-              <div key={pet.id}>
-                <Pet
-                  id={pet.id}
-                  name={pet.name}
-                  description={pet.description}
-                  age={pet.age}
-                  gender={pet.gender}
-                  size={pet.size}
-                  type={pet.type}
-                  breed={pet.breeds}
-                  photo={pet.photos}
-                />
-                <button onClick={() => handlePetButtonClick(pet.id)}>Save</button>
-              </div>
-            ))
+      console.log(pets);
+      return (
+        <>
+        <h1 className="h1-headers" >Take A Look Around</h1>
+          <h2 className="pet-list-h2">Our Cuties</h2>
+      
+          {saveMessage && (
+            <p className={`save-message${saveMessage.startsWith("You") ? ' error-message' : ''}`}>
+              {saveMessage}
+            </p>
           )}
-        </div>
-      </>
-    );
+          <div className="pet-list-container">
+            {pets.length === 0 ? (
+              <p className="loading-p">Loading ...</p>
+            ) : (
+              pets.map((pet) => (
+                <div key={pet.id}>
+                  <Pet
+                    id={pet.id}
+                    name={pet.name.toUpperCase()}
+                    description={pet.description ? pet.description : "N/A"}
+                    age={pet.age}
+                    gender={pet.gender}
+                    size={pet.size}
+                    type={pet.type}
+                    breed={pet.breeds}
+                    photo={pet.photos ? pet.photos : defaultPhoto}
+                    contact={pet.contact.email}
+                    adopted={pet.status}
+                    onSave={handlePetButtonClick}
+                  />
+                </div>
+              ))
+            )}
+          </div>
+        </>
+      );
+      
   };
   
   export default PetList;

@@ -17,7 +17,7 @@ beforeEach(async () => {
     try {
       // Connect to the database
       const result = await db.query(
-        `INSERT INTO pets (name, breed, age, size, gender, type, description, photo, adopted)
+        `INSERT INTO pets (name, breed, age, size, gender, type, description, photo, adopted, contact)
          VALUES ('testpet',
                  'shepperd',
                  'baby',
@@ -26,7 +26,8 @@ beforeEach(async () => {
                  'cat',
                  'awesome',
                  'someimage.img',
-                 'no')
+                 'no',
+                 'somerandomemail@email.com')
          RETURNING *`
       );
       
@@ -90,9 +91,8 @@ beforeEach(async () => {
       try {
         console.log("Received Token:", testUserToken); // Log the token for debugging
         const decodedToken = jwt.verify(testUserToken, SECRET_KEY);
-        console.log("Decoded Token:", decodedToken); // Log the decoded token for debugging
-        // Verify the token and expected claims
-        // expect(decodedToken).toHaveProperty("your_expected_property_name");
+        console.log("Decoded Token:", decodedToken); 
+       
       } catch (error) {
         throw new Error("JWT VERIFICATION FAILED: " + error.message);
       }
@@ -101,7 +101,8 @@ beforeEach(async () => {
       const expectedPet = {
         petid: expect.any(Number),
         name: "testpet",
-        breed: "shepperd", // Corrected the breed value
+        breed: "shepperd",
+        contact: "somerandomemail@email.com", 
         age: "baby",
         size: "Male",
         gender: "baby",

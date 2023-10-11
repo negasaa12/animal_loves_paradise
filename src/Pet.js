@@ -1,8 +1,12 @@
 import React from "react";
 import "./Pet.css";
+import defaultPhoto from "./images/animalPhoto.webp";
 
-const Pet = ({ id, name, breed, age, size, gender, type, description, photo, adopted }) => {
-  const mediumPhoto = photo.length > 0 ? photo[0].medium : '';
+
+
+
+const Pet = ({ id, name, breed, age, size, gender, type, description, photo, adopted, contact, onSave}) => {
+  const mediumPhoto = photo.length > 0 ? photo[0].medium : defaultPhoto;
   
   return (
     <div className="pet-card">
@@ -14,11 +18,13 @@ const Pet = ({ id, name, breed, age, size, gender, type, description, photo, ado
       <p className="pet-details">Type: {type}</p>
       <p className="pet-details">Size: {size}</p>
       <p className="pet-details">Description: {description}</p>
+      <p className="pet-details">Contact: {contact}</p>
       {adopted === "adoptable" ? (
-        <p className="adopt-message">Adopt Me</p>
+        <p className="adopt-message">Adopt Me !!!</p>
       ) : (
         <p className="adopt-message">Adopted!</p>
       )}
+       <button className="save-button" onClick={() => onSave(id)}>Save</button>
     </div>
   );
 };

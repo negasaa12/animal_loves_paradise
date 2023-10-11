@@ -80,8 +80,10 @@ const loginUser = async (username, password) => {
     const response = await axios.patch(`http://localhost:3002/users/password/${userId}`, formData);
         
     const updatedUser = response.data;
-
-    setUser(updatedUser);
+      if(updatedUser){
+        console.log("USER PASSWORD SUCCESFULLY UPDATED")
+      }
+    
     } catch(e){
     
       console.error(e);

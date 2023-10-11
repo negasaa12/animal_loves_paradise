@@ -11,7 +11,7 @@ const LoginForm = ({ onLogin }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState(initial_State);
   const [loginFailed, setLoginFailed] = useState(false);
-
+  const [errorMsg, setErrorMsg] = useState("Login failed. Username/password is wrong.");
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((formData) => ({
@@ -40,10 +40,10 @@ const LoginForm = ({ onLogin }) => {
 
   return (
     <>
-      <h1 className="display-4">Login</h1>
+      <h1 className="h1-headers">Login</h1>
 
-      <div className="form-container">
-        <form onSubmit={handleSubmit}>
+      <div  className="edit-form-container">
+        <form onSubmit={handleSubmit} className="edit-form">
           <label className="form-label" htmlFor="username">
             Username
           </label>

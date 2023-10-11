@@ -1,67 +1,77 @@
 
-/* Style for the entire container */
+
 .pet-list-container {
-    max-width: 100px; /* Adjust the max width as needed */
-    margin: 0 auto; /* Center the container horizontally */
-    padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust column size as needed */
+  gap: 20px; /* Gap between grid items */
+  max-width: 2000px; /* Adjust the max width as needed */
+  margin: 0 auto; /* Center the container horizontally */
+  padding: 20px;
+}
+.pet-list-h2{
+  margin-top: 60px;
+  margin-bottom: 60px;
+  font-size: 70px ;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: #B0D9B1;
+}
+
+
+/* CSS to center the loading message in the middle of the page */
+.loading-p {
+  position: fixed;
+  top: 40%;
+  left: 47%;
+  transform: translate(-50%, -50%);
+  font-size: 23px;
+  text-align: center;
+  color: #333;
+  padding: 20px;
+  margin: 0;
+  background-color: #839e7d;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
   }
-  
-  /* Style for the list of pets */
-  .pet-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid layout */
-    gap: 20px; /* Spacing between pet cards */
+  50% {
+    transform: scale(1.1);
   }
-  
-  /* Style for each pet card */
-  .pet-card {
-    background-color: #413131;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
+  100% {
+    transform: scale(1);
   }
-  
-  .pet-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  /* Style for pet image */
-  .pet-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 10px;
-  }
-  
-  /* Style for pet name */
-  .pet-name {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #333;
-  }
-  
-  /* Style for pet description */
-  .pet-description {
-    font-size: 14px;
-    color: #777;
-  }
-  
-  /* Style for the "Save" button */
-  .save-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .save-button:hover {
-    background-color: #0056b3;
-  }
-  
+}
+
+
+
+
+
+/* Style for the save message */
+.save-message {
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: #57c971; /* Green background color */
+  color: #fff; /* White text color */
+  padding: 10px 20px; /* Padding around the message */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 16px;
+  margin-bottom: 10px; /* Add some space below the message */
+  text-align: center; /* Center-align the text */
+}
+
+.error-message {
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: #dc3545 !important; /* Red background color with !important */
+  color: white !important; /* White text color */
+  padding: 10px 20px; /* Padding around the message */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 16px;
+  margin-bottom: 10px; /* Add some space below the message */
+  text-align: center; /* Center-align the text */
+}
+

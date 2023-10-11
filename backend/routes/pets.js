@@ -8,13 +8,16 @@ const bcrypt = require('bcrypt'); // For password hashing
 const {searchPets, getAccessToken} = require("../petfinderservice");
 const { ensuredLoggedIn , authenticateJWT, authenticateJWTQuery, ensuredLoggedInQuery} = require("../middleware");
 
-router.get("/",  async (req,res,next) =>{
+router.get("/search",  async (req,res,next) =>{
     try {
         const accessToken = await getAccessToken();
         const response = await axios.get('https://api.petfinder.com/v2/animals', {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
+          params : { gender: "female", coat: "medium" , type : "dog"
+                 
+          }
         });
         const petData = response.data;
         return res.json(petData.animals);
@@ -32,9 +35,14 @@ router.get("/:userID/favpets", authenticateJWTQuery, ensuredLoggedInQuery,  asyn
     console.log("REQUEST QUERY IN SERVIER ROUTE", req.query, userID);
     // Query the database to retrieve adopted pets for the specified user
     const results = await db.query(
-      "SELECT pets.* FROM pets JOIN User_Pet_Relationship ON pets.petid = User_Pet_Relationship.petid WHERE User_Pet_Relationship.userid = $1 AND User_Pet_Relationship.InteractionType = 'Adoption'",
+      "SELECT pets.* FROM pets " +
+      "JOIN User_Pet_Relationship ON pets.petid = User_Pet_Relationship.petid " +
+      "WHERE User_Pet_Relationship.userid = $1 " +
+      "AND User_Pet_Relationship.InteractionType = 'Adoption' " +
+      "ORDER BY User_Pet_Relationship.Timestamp DESC",
       [userID]
     );
+    
         console.log(results.rows);
     if (results.rows.length === 0) {
       // If no pets are found, throw an error
@@ -114,12 +122,12 @@ router.post("/add", authenticateJWT, ensuredLoggedIn,   async (req, res, next) =
       return res.status(400).json({ error: "Invalid data", details: petPending.errors });
     }
 
-    const { name, breed, age, size, gender, type, description, photo, adopted, user } = req.body;
+    const { name, breed, age, size, gender, type, description, photo, adopted, user, contact } = req.body;
     const userid = user.userid;
     console.log("USER ID FOR PET TO BE ADDED", userid);
     const petResult = await db.query(
-      "INSERT INTO pets ( name, breed, age, size, gender, type, description, photo, adopted) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING petid ,name,  breed, age",
-      [ name, breed, age, size, gender, type, description, photo, adopted]
+      "INSERT INTO pets ( name, breed, age, size, gender, type, description, photo, adopted, contact) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING petid ,name,  breed, age",
+      [ name, breed, age, size, gender, type, description, photo, adopted, contact]
     );
 
     const petId = petResult.rows[0].petid;

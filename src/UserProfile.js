@@ -18,7 +18,7 @@ const UserProfile = ({ userInfo }) => {
     
   const fetchFavePets = async (userid) => {
     const {user, token} = userInfo;
-      console.log( "USER",user)
+      // console.log( "USER",user)
       const SomeData = {token};
     try {
       const response = await axios.get(`http://localhost:3002/pets/${userid}/favpets`, {
@@ -62,31 +62,39 @@ const UserProfile = ({ userInfo }) => {
   }; 
   // Render user data and favorite pets only if userInfo is not null
   return (
+
     <div className="user-profile-container">
       <div className="user-info">
-        <h1 className="welcome-heading">Welcome back</h1>
+        <h1 className="h1-headers">Welcome back</h1>
         <h2 className="user-name">
           {userInfo.user.firstname} {userInfo.user.lastname}
         </h2>
       </div>
-      {removeMessage && <p>{removeMessage}</p>}
+      {removeMessage && <p className="save-message">{removeMessage}</p>}
       <div className="favorite-pets">
         <h3 className="favorite-pets-heading">Your Favorite Pets</h3>
         <div className="favorite-pets-list">
-         
-          {favePets.length === 0? <h3>No Favorites huh?</h3> :favePets.map((pet) => (
-            <div key={pet.petid} className="favorite-pet-card">
-              <img src={pet.photo} alt={pet.name} className="pet-image" />
-              <h4 className="pet-name">{pet.name}</h4>
-              <p className="pet-description">{pet.description}</p>
-              <button onClick={()=> handleButtonClick(pet.petid)}> Unfavorite</button>
-              {/* Add more details as needed */}
-            </div>
-          ))}
+          {favePets.length === 0 ? (
+            <h3>No Favorites huh?</h3>
+          ) : (
+            favePets.map((pet) => (
+              <div key={pet.petid} className="favorite-pet-card">
+               
+                <h4 className="pet-name">{pet.name.toUpperCase()}</h4>
+                <img src={pet.photo} alt={pet.name} className="pet-image" />
+                <p className="pet-description">{pet.description}</p>
+                <p className="pet-description">{pet.breed}</p>
+                <p className="pet-description">{pet.age}</p>
+                <p className="pet-description">{pet.gender}</p>
+                <p className="pet-description">{pet.contact}</p>
+                <button onClick={() => handleButtonClick(pet.petid)}>Unfavorite</button>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>
   );
-};
-
+  
+            }
 export default UserProfile;

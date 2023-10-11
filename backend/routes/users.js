@@ -87,7 +87,7 @@ router.patch("/password/:id", async (req, res, next) => {
     const { currentPassword, newPassword } = req.body;
 
     const userQuery = await db.query('SELECT * FROM users WHERE userid = $1', [id]);
-    console.log('SQL Query:', userQuery.text); // Add this line to log the SQL query
+    // console.log('SQL Query:', userQuery.text); // Add this line to log the SQL query
     const currentUser = userQuery.rows[0];
 
     if (!currentUser) {

@@ -21,7 +21,7 @@ describe('NavBar Component', () => {
     // Check that profile-related links and logout button are not present
     expect(screen.queryByText('My Profile')).toBeNull();
     expect(screen.queryByText('Log Out')).toBeNull();
-    expect(screen.queryByText('Edit Profile')).toBeNull();
+    expect(screen.queryByText('Change Password')).toBeNull();
   });
 
   test('renders navigation links and profile links when user is logged in', () => {
@@ -49,12 +49,12 @@ describe('NavBar Component', () => {
     // Check that profile-related links and logout button are present
     expect(screen.getByText('My Profile')).toBeInTheDocument();
     expect(screen.getByText('Log Out')).toBeInTheDocument();
-    expect(screen.getByText('Edit Profile')).toBeInTheDocument();
+    expect(screen.getByText('Change Password')).toBeInTheDocument();
 
     // Check that Sign Up and Log In links are not present
     expect(screen.queryByText('Sign Up')).toBeNull();
     expect(screen.queryByText('Log In')).toBeNull();
   });
 
-  // Add more test cases as needed to cover different scenarios and behaviors
+  
 });

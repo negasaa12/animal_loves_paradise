@@ -39,9 +39,9 @@ const RegisterForm = ({onRegister})=>{
 
     return(
         <>
-        <h1 class="display-4" > Sign up</h1>
+        <h1 class="h1-headers" > Sign Up</h1>
 
-        <div className="form-container">
+        <div className="edit-form-container">
             <form  onSubmit={handleSubmit}>
 
             <label className="form-label" htmlFor="username" > Username</label>

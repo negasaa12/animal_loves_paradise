@@ -5,7 +5,7 @@ const DB_URI = (process.env.NODE_ENV === "test")
     : "postgresql:///pet_adoption"
 
 
-    const SECRET_KEY = process.env.SECRET_KEY || "AdoptionPotionOcean"
+    const SECRET_KEY = process.env.SECRET_KEY || "MOTIONOFTHEOCEAN";
 
     const BCRYPT_WORK_FACTOR = 12;
 
@@ -13,6 +13,5 @@ const DB_URI = (process.env.NODE_ENV === "test")
         DB_URI,
         SECRET_KEY,
         BCRYPT_WORK_FACTOR,
-        petfinderApiKey: "YOUR API KEY",
-        petfinderApiSecret:  "YOUR API SECRET"
+      
     }

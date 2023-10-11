@@ -1,0 +1,53 @@
+/* Home.css */
+
+
+ .h1-headers{
+
+    margin-top: 30px;
+    font-size: 70px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #79AC78;
+    
+ }
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* This will center the content vertically in the middle of the browser window */
+  }
+  
+  .nav-item {
+    text-align: center;
+    text-decoration: rgb(196, 180, 156);
+    color: #86b85e; /* Link color */
+    margin: 0 20px;
+    transition: all 0.4s ease;
+    
+  }
+  .nav-item:hover {
+    text-decoration: none;
+    color: rgb(196, 111, 8);
+    transform: translateY(-5px);
+  }
+  /* Add border and border radius to the rounded container */
+  .rounded-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid rgb(143, 170, 99); /* Black border */
+    border-radius: 15px; /* Adjust the border radius as needed */
+    padding: 10px; /* Add padding to create space between image and text */
+
+  }
+  
+  .rounded-image {
+    width: 450px; /* Adjust the image width as needed */
+    height: auto; /* Maintain aspect ratio */
+    
+  }
+  
+ 
+  .rounded-container .big-text {
+    font-size: 45px; /* Adjust the font size as needed */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }

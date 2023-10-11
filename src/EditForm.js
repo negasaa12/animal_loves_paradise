@@ -11,7 +11,7 @@ const EditForm = ({ userData, onEdit }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState(initial_State);
   const [updateFailed, setUpdateFailed] = useState(false);
-  const [updateMessage, setUpdateMessage] = useState(null);
+  const [updateMessage, setUpdateMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,14 +25,15 @@ const EditForm = ({ userData, onEdit }) => {
     e.preventDefault();
 
     const changedPassword = await onEdit(formData, userData.user.userid);
-    if (!changedPassword) {
-      setUpdateFailed(true);
-      setUpdateMessage("Password Change Failed.");
-    } else {
+
+    if (changedPassword) {
       setUpdateFailed(false);
       setUpdateMessage("Password Successfully Changed.");
+    } else {
+      setUpdateFailed(true); // Set updateFailed to true
+      setUpdateMessage("Password change failed.");
     }
-    
+  
     setFormData(initial_State);
   };
 
