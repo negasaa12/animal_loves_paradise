@@ -23,18 +23,25 @@ const EditForm = ({ userData, onEdit }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const changedPassword = await onEdit(formData, userData.user.userid);
-
-    if (changedPassword) {
-      setUpdateFailed(false);
-      setUpdateMessage("Password Successfully Changed.");
-    } else {
-      setUpdateFailed(true); // Set updateFailed to true
-      setUpdateMessage("Password change failed.");
-    }
+    
+    try {
+      const changedPassword = await onEdit(formData, userData.user.userid);
+      console.log("changed password", changedPassword);
   
-    setFormData(initial_State);
+      if (changedPassword) {
+        setUpdateFailed(false);
+        setUpdateMessage("Password successfully changed.");
+      } else {
+        setUpdateFailed(true);
+        setUpdateMessage("Password change failed.");
+      }
+  
+      setFormData(initial_State);
+    } catch (error) {
+      console.error("Error changing password:", error);
+      setUpdateFailed(true);
+      setUpdateMessage("An error occurred while changing the password.");
+    }
   };
 
   return (

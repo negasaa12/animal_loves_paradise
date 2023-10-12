@@ -87,7 +87,7 @@ const RegisterForm = ({onRegister})=>{
                 <label className="form-label" htmlFor="password">Password</label>
                 <input
                 className="form-input"
-                type="text"
+                type="password"
                 id="password"
                 name="password"
                 value={formData.password}

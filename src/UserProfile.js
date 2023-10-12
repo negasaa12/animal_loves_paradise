@@ -52,6 +52,10 @@ const UserProfile = ({ userInfo }) => {
         
         setFavePets((prevFavePets) => prevFavePets.filter((pet) => pet.petid !== petid));
         setRemoveMessage(<p>Pet has been deleted</p>);
+        setTimeout(() => {
+          setRemoveMessage();
+        }, 2000);
+        
        
       } catch(e){
         console.log(e);
@@ -65,17 +69,17 @@ const UserProfile = ({ userInfo }) => {
 
     <div className="user-profile-container">
       <div className="user-info">
-        <h1 className="h1-headers">Welcome back</h1>
+        <h1 className="h1-headers-profile">Welcome back</h1>
         <h2 className="user-name">
           {userInfo.user.firstname} {userInfo.user.lastname}
         </h2>
       </div>
-      {removeMessage && <p className="save-message">{removeMessage}</p>}
+      {removeMessage && <p className="save-message-profile">{removeMessage}</p>}
       <div className="favorite-pets">
         <h3 className="favorite-pets-heading">Your Favorite Pets</h3>
         <div className="favorite-pets-list">
           {favePets.length === 0 ? (
-            <h3>No Favorites huh?</h3>
+            <h3 className="favorite-pet-message">No Favorites Yet?</h3>
           ) : (
             favePets.map((pet) => (
               <div key={pet.petid} className="favorite-pet-card">

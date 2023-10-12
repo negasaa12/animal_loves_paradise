@@ -1,5 +1,6 @@
 
 .edit-form-container {
+    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,11 +8,11 @@
     height: auto; /* Allow the container to expand based on content */
     background-color: #c1d1a7;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
     padding: 20px;
     max-width: 400px; /* Set a maximum width for the container */
-    margin: 50px auto 0; /* Center horizontally and add top margin */
+    margin: 100px auto 0; 
   }
   
   /* Form heading style */
@@ -35,24 +36,25 @@
   .form-input {
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
     font-size: 16px;
     width: 100%;
   }
   
   /* Form label style */
   .form-label {
-    font-size: 18px;
+    font-size: 19px;
     font-weight: bold;
   }
   
   /* Form button styles */
   .form-button {
     padding: 10px 15px;
-    background-color: #7ea8d6;
+  
+    background-color: #7ec4d6;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 18px;
     cursor: pointer;
     font-size: 16px;
     width: 100%;
@@ -67,8 +69,11 @@
   
   /* Success message style */
   .success-message {
-    color: #4caf50;
-    font-size: 16px;
+    color: #ffffff;
+    background-color: #66db43b2;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 20px;
     text-align: center;
   }
   

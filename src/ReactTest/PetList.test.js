@@ -29,7 +29,7 @@ describe('PetList Component', () => {
     // Check if loading message is displayed
     expect(screen.getByText('Our Cuties')).toBeInTheDocument();
     expect(screen.getByText('Loading ...')).toBeInTheDocument();
-
+    
     // Wait for the data to load
     await waitFor(() => screen.getByText('Our Cuties'));
 

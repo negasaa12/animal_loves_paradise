@@ -82,8 +82,9 @@ const loginUser = async (username, password) => {
     const updatedUser = response.data;
       if(updatedUser){
         console.log("USER PASSWORD SUCCESFULLY UPDATED")
+        return true
       }
-    
+      
     } catch(e){
     
       console.error(e);

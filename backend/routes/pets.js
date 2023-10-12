@@ -8,24 +8,26 @@ const bcrypt = require('bcrypt'); // For password hashing
 const {searchPets, getAccessToken} = require("../petfinderservice");
 const { ensuredLoggedIn , authenticateJWT, authenticateJWTQuery, ensuredLoggedInQuery} = require("../middleware");
 
-router.get("/search",  async (req,res,next) =>{
-    try {
-        const accessToken = await getAccessToken();
-        const response = await axios.get('https://api.petfinder.com/v2/animals', {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-          params : { gender: "female", coat: "medium" , type : "dog"
+// router.get("/search",  async (req,res,next) =>{
+//     try {
+
+//         {gender, breed}
+//         const accessToken = await getAccessToken();
+//         const response = await axios.get('https://api.petfinder.com/v2/animals', {
+//           headers: {
+//             Authorization: `Bearer ${accessToken}`,
+//           },
+//           params : { gender: "female", coat: "medium" , type : "dog"
                  
-          }
-        });
-        const petData = response.data;
-        return res.json(petData.animals);
+//           }
+//         });
+//         const petData = response.data;
+//         return res.json(petData.animals);
       
-      } catch (error) {
-        next(error);
-      }
-})
+//       } catch (error) {
+//         next(error);
+//       }
+// })
 
 
 // Backend route to get a user's favorite pets
@@ -61,13 +63,17 @@ router.get("/:userID/favpets", authenticateJWTQuery, ensuredLoggedInQuery,  asyn
 router.get("/type/:type",  async (req,res,next)=>{
     try{
       const accessToken = await getAccessToken();
-        const type =  req.params.type;
+        const {type} =  req.params;
+        const {gender, location } = req.query;
         const response = await axios.get("https://api.petfinder.com/v2/animals", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
           params : {
-             type: type
+             type,
+             gender,
+             location
+             
           }
         });
         

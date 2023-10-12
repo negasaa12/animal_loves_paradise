@@ -22,7 +22,7 @@ describe('RoutePaths Component', () => {
         <RoutePaths />
       </MemoryRouter>
     );
-    expect(screen.getByText("Cat & Dog Love")).toBeInTheDocument();
+    expect(screen.getByText("Furry Friend Finder")).toBeInTheDocument();
   });
 
 

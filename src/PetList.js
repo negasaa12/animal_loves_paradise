@@ -5,7 +5,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import "./PetList.css";
 import defaultPhoto from "./images/animalPhoto.webp";
-
+import SearchForm from "./SearchForm";
 
 
 const PetList = ({ currentUser }) => {
@@ -14,27 +14,30 @@ const PetList = ({ currentUser }) => {
     const {type} = useParams();
    
 
-
+    const fetchPets = async (location, gender) => {
+      try {
+        const response = await axios.get(`http://localhost:3002/pets/type/${type}`, {
+          params: {
+            location: location || undefined, // Pass undefined if location is empty
+            gender: gender || undefined, // Pass undefined if gender is empty
+          },
+        });
+  
+        if (!response.status === 200) {
+          throw new Error("Network response was not ok");
+        }
+  
+        const data = response.data;
+        setPets(data);
+      } catch (e) {
+        console.log("Error, fetching pets", e);
+      }
+    };
 
     useEffect(() => {
-      const fetchPets = async (type) => {
-        try {
-          const response = await fetch(`http://localhost:3002/pets/type/${type}`); 
-  
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-  
-          const data = await response.json();
-          setPets(data);
-        } catch (e) {
-          console.log("Error, fetching pets", e);
-        }
-      };
-
-        
-      fetchPets(type);
+      fetchPets(); // Initialize with empty location and gender
     }, [type]);
+  
 
 
 
@@ -84,7 +87,7 @@ const PetList = ({ currentUser }) => {
         setSaveMessage(`Pet "${name}" has been saved.`);
         setTimeout(() => {
           setSaveMessage(null);
-        }, 5000);
+        }, 2000);
       } catch (e) {
         console.log(e);
         // Handle the error, e.g., display an error message
@@ -96,6 +99,7 @@ const PetList = ({ currentUser }) => {
       return (
         <>
         <h1 className="h1-headers" >Take A Look Around</h1>
+        <SearchForm  onSearch={fetchPets}/>
           <h2 className="pet-list-h2">Our Cuties</h2>
       
           {saveMessage && (

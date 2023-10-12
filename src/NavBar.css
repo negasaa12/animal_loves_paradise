@@ -29,6 +29,7 @@
     color: #fff;
     padding: 5px;
     font-size: 25px;
+    
   }
   
   /* NavLink hover styles */
@@ -64,7 +65,7 @@
   
   /* Log Out button styles */
   .nav-logout-button {
-    background-color: #D4DBA7;
+    background-color:#618264;
     color: #fff;
     border: none;
     padding: 5px 10px;
@@ -84,7 +85,16 @@
   display: inline-block;
   cursor: pointer;
   font-size: 25px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
 }
+.nav-dropdown:hover {
+  background-color: #bfc291;
+  font-size: 25px;
+  color:white;
+}
+
 
 /* Dropdown content styles */
 .nav-dropdown-content {

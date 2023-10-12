@@ -49,8 +49,8 @@ describe("UserProfile Component", () => {
     // Wait for favorite pets to be loaded
     await waitFor(() => {
       expect(screen.getByText("Your Favorite Pets")).toBeInTheDocument();
-      expect(screen.getByText("Fluffy")).toBeInTheDocument();
-      expect(screen.getByText("Buddy")).toBeInTheDocument();
+      expect(screen.getByText("FLUFFY")).toBeInTheDocument();
+      expect(screen.getByText("BUDDY")).toBeInTheDocument();
     });
   });
 
@@ -76,7 +76,7 @@ describe("UserProfile Component", () => {
     // Wait for the message to be displayed
     await waitFor(() => {
       expect(screen.getByText("Your Favorite Pets")).toBeInTheDocument();
-      expect(screen.getByText("No Favorites huh?")).toBeInTheDocument();
+      expect(screen.getByText("No Favorites Yet?")).toBeInTheDocument();
     });
   });
 

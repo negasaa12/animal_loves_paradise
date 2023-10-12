@@ -17,7 +17,7 @@ describe("RegisterForm", () => {
   });
 
   test("renders the form with input fields", () => {
-    expect(screen.getByText("Sign up")).toBeInTheDocument();
+    expect(screen.getByText("Sign Up")).toBeInTheDocument();
     expect(screen.getByLabelText("Username")).toBeInTheDocument();
     expect(screen.getByLabelText("First Name")).toBeInTheDocument();
     expect(screen.getByLabelText("Last Name")).toBeInTheDocument();
