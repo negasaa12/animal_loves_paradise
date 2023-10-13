@@ -37,9 +37,7 @@ const RoutePaths = () =>{
       setUser(null);
       navigate("/")
     };  
-  //  const [pets, setPets] = useState([]);
 
-    console.log("CURRENT USER", currentUser);
    
 
 

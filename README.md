@@ -36,7 +36,7 @@ The application will offer user registration, secure login, personalized profile
 Users will follow a seamless journey - from registration and login to exploring the animal catalog, applying filters, and ultimately selecting pets for adoption. Adopted pets will be featured in the user's profile.
 
 ### Enhanced Features
-In addition to basic CRUD operations, our app will provide personalized profiles, adoption history tracking, and insights into the adoption process.
+In addition to basic CRUD operations, our app will provide personalized profiles, Authentication,  and insights into seeing what animal is right for you.
 
 ## Conclusion
 The "Adoption App for Animal Lovers" project amalgamates compassion with technology. By harnessing the capabilities of React and Node.js, we aim to build an impactful platform that transcends functionality, delivering a transformative experience for both animals and their future owners. We embark on this journey with excitement, ready to create a positive change in the world of pet adoption.

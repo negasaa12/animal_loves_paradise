@@ -59,8 +59,7 @@ function authenticateJWTQuery(req, res, next) {
     // Attach the user information to the request
     req.user = payload;
     // Continue to the next middleware or route handler
-    console.log("YOU HAVE A VALID TOKEN",req.user);
-    console.log("User object in authenticate middleware:", req.query);
+    
     return next();
   } catch (e) {
     console.error('JWT verification failed:', e);
@@ -71,7 +70,7 @@ function authenticateJWTQuery(req, res, next) {
   const ensuredLoggedIn = (req, res, next) => {
     try {
       // Add debugging statements to check the user object
-      console.log("User object in ensuredLoggedIn middleware:", req.body);
+      
       
       if (!req.body.user) {
         const e = new ExpressError("Unauthorized", 401);
@@ -88,7 +87,7 @@ function authenticateJWTQuery(req, res, next) {
   const ensuredLoggedInQuery = (req, res, next) => {
     try {
       // Add debugging statements to check the user object
-      console.log("User object in ensuredLoggedIn middleware:", req.query);
+      
       
       if (!req.query.user) {
         const e = new ExpressError("Unauthorized", 401);
