@@ -1,5 +1,9 @@
+//TESTS authorization for login in and registering
+
+//Set the environment to "test"
 process.env.NODE_ENV = "test";
 
+//import necessary dependencies 
 const assert = require('assert');
 const app = require("../app"); // Import your Express app
 const request = require('supertest');
@@ -7,12 +11,15 @@ const db = require("../db");
 const petSchema = require("../schemas/petsSchema.json");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
-
 const {BCRYPT_WORK_FACTOR, SECRET_KEY} = require("../config");
+
+//Mock axios
 jest.mock("axios");
 let testPet;
 let testUser;
 let testUserToken;
+
+//before each test  insert a user and pet to the database
 beforeEach(async () => {
     try {
       // Connect to the database
@@ -56,25 +63,25 @@ beforeEach(async () => {
     }
   });
   
+  //Delete test user, pet, pet relationship to user off the database
   afterEach(async () => {
     try {
-      // Delete the test user from the database
-      
-        // Delete the test user and test pet from the database
+     
     await db.query(`DELETE FROM user_pet_relationship`);
     await db.query(`DELETE FROM pets`);
-    await db.query(`DELETE FROM users`); // Add this line to delete test users
+    await db.query(`DELETE FROM users`); 
     } catch (error) {
       console.error('Error deleting test user:', error);
     }
   });
   
+   // Close the database connection
   afterAll(async () => {
-    // Close the database connection
+   
     await db.end();
   });
 
-
+    //Send a GET request to pets/:id/favpets to retreieve User's list of favorite pets
   describe("GET pets/:id/favpet", () => {
     test("get all favPets", async function () {
       // Assuming you have testUser and testUserToken defined
@@ -119,16 +126,16 @@ beforeEach(async () => {
   
 
   
-  
+  //sends a POST request to /pets/add to add a pet to the pet database and pet_user_relationship database
   describe("POST /pets/add", ()=>{
   
   
-  
+    
     test('add single pet', async () => {
       
       
     
-     
+
         const res = await request(app).post('/pets/add').send({
             name: "Fluffy",
             breed: "Golden Retriever",
@@ -178,10 +185,10 @@ beforeEach(async () => {
 
   
   
-  
+  //Deletes pets from pets database
 describe("DELETE /pets", () => {
     test("DELETE a single pet", async () => {
-      const res = await request(app).delete(`/pets/${testPet.petid}`); // Use testPet.petId
+      const res = await request(app).delete(`/pets/${testPet.petid}`); 
   
       expect(res.status).toBe(200);
     });

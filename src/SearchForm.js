@@ -3,14 +3,17 @@ import { useState } from "react";
 import "./SearchForm.css";
 
 const SearchForm = ({ onSearch }) => {
+    // Define the initial state for form inputs
   const initial_State = {
     location: "",
     gender: "",
   };
 
+  // Use state to manage form data and error state
   const [formData, setFormData] = useState(initial_State);
   const [loginFailed, setLoginFailed] = useState(false);
 
+  // Function to handle input changes and update the form data
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((formData) => ({
@@ -19,17 +22,20 @@ const SearchForm = ({ onSearch }) => {
     }));
   };
 
+  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Pass the search parameters to the onSearch function
+    // Extract search parameters from the form data
     const { location, gender } = formData;
-     const foundPet = onSearch(location, gender);
-     if(foundPet){
-        setFormData(initial_State);
-     }
-    
-   
+
+    // Call the provided onSearch function with search parameters
+    const foundPet = onSearch(location, gender);
+
+    if (foundPet) {
+      // If search was successful, reset the form data
+      setFormData(initial_State);
+    }
   };
 
   return (

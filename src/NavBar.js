@@ -10,8 +10,9 @@ const NavBar = ({ userInfo, handleLogOut }) => {
 
 
 
-  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false); 
 
+  //setProfile to reveal the drop down nav div
   const toggleProfileDropdown = () => {
     setProfileDropdownOpen(!profileDropdownOpen);
   };
@@ -34,7 +35,7 @@ const NavBar = ({ userInfo, handleLogOut }) => {
   </NavLink>
 </li>
 
-
+        
         {userInfo !== null ? (
           <>
                <li className="nav-item">

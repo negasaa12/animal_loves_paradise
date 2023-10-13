@@ -21,6 +21,7 @@ const RoutePaths = () =>{
 
   const navigate = useNavigate()
   const [currentUser, setUser] = useState(() => {
+     // Retrieve the current user from localStorage, or set it to null if not present
     const storedUser = localStorage.getItem('currentUser');
         return storedUser ? JSON.parse(storedUser) : null;
 
@@ -43,8 +44,8 @@ const RoutePaths = () =>{
 
 
 
- 
-const loginUser = async (username, password) => {
+  // Function to log in a user
+  const loginUser = async (username, password) => {
     try {
       
       const url = `http://localhost:3002/login`;
@@ -55,7 +56,7 @@ const loginUser = async (username, password) => {
           'Content-Type': 'application/json',
           
         },
-        // You can include the credentials in the request body or headers as needed
+        //include the credentials in the request body or headers as needed
         body: JSON.stringify({ username, password }),
       });
   
@@ -90,7 +91,7 @@ const loginUser = async (username, password) => {
       console.error(e);
     }
   }
-
+    // Function to handle user registration
    async function handleUserRegistration(formData) {
     try {
       // Send a POST request to your backend
@@ -99,11 +100,11 @@ const loginUser = async (username, password) => {
       // Update the user list after a successful registration
       
       const user = response.data;
-      
+      return user
     } catch (error) {
       // Handle any errors that occurred during the request
-      console.error(error);
-      setUser({ registrationResult: 'Registration failed' });
+      throw error
+      
     }
   }
     

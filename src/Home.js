@@ -4,6 +4,8 @@ import dogImage from  "./images/dog-24.png"; // Import the dog image
 import catImage from "./images/cat.png"; // Import the cat image
 import './Home.css';
 
+
+//Home component
 const Home = () => {
   return (
     <>

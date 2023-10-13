@@ -1,4 +1,6 @@
 
+//import necessary dependencies 
+
 const jwt = require("jsonwebtoken")
 const { SECRET_KEY} = require("./config");
 const ExpressError = require("./expressError");
@@ -10,7 +12,7 @@ function logger(req,res,next){
 };
 
 
-
+//authenticate JWT token
 function authenticateJWT(req, res, next) {
     try { 
       
@@ -38,6 +40,7 @@ function authenticateJWT(req, res, next) {
     }
   }
   
+  //authenticate JWT token in req.query
 function authenticateJWTQuery(req, res, next) {
   try { 
     
@@ -64,7 +67,7 @@ function authenticateJWTQuery(req, res, next) {
     return next();
   }
 }
-  
+  //ensure user is logged in by checking the user object in the req.body
   const ensuredLoggedIn = (req, res, next) => {
     try {
       // Add debugging statements to check the user object
@@ -81,7 +84,7 @@ function authenticateJWTQuery(req, res, next) {
     }
   };
 
-  
+   //ensure user is logged in by checking the user object in the req.query
   const ensuredLoggedInQuery = (req, res, next) => {
     try {
       // Add debugging statements to check the user object

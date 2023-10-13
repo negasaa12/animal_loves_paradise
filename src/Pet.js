@@ -4,6 +4,7 @@ import defaultPhoto from "./images/animalPhoto.webp";
 
 
 
+//Pet component that shows a a Pet Card with all their details
 
 const Pet = ({ id, name, breed, age, size, gender, type, description, photo, adopted, contact, onSave}) => {
   const mediumPhoto = photo.length > 0 ? photo[0].medium : defaultPhoto;

@@ -77,9 +77,9 @@
     text-align: center;
   }
   
-  /* Media query for smaller screens */
+
   @media screen and (max-width: 768px) {
-    /* Adjust styles for smaller screens */
+    
     .edit-form-container {
       padding: 10px;
     }

@@ -3,9 +3,11 @@ import {useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 
-
+//Register Form component for user to Register to the site.
 const RegisterForm = ({onRegister})=>{
 
+
+    //initial state for the form inputs 
     const initial_State = {
       username: "",
       firstName : "",
@@ -17,9 +19,14 @@ const RegisterForm = ({onRegister})=>{
         }
 
     const navigate = useNavigate();
-    const [formData, setFormData] = useState(initial_State);
-    const [loginFailed, setLoginFailed] = useState(false);
+    const [formData, setFormData] = useState(initial_State); 
+    const [loginFailed, setLoginFailed] = useState(false); 
+    const [message, setMessage ]= useState("");
+
+    
     const handleChange = (e) => {
+
+      //extract name and value from the event target
         const { name, value } = e.target;
         setFormData((formData) => ({
           ...formData,
@@ -28,12 +35,31 @@ const RegisterForm = ({onRegister})=>{
       };
     
       
-      const handleSubmit = (e) => {
+      const handleSubmit = async (e) => {
         e.preventDefault();
- 
-        onRegister(formData)
-        setFormData(initial_State);
-        navigate("/login");
+      
+        try {
+          const newUser = await onRegister(formData);
+          
+          //if user is not undefined
+          if (newUser) {
+            
+            setLoginFailed(false);
+            //setFormData to initial State
+            setFormData(initial_State);
+            //navigate to login
+            navigate("/login");
+          }
+
+          
+        } catch (error) {
+          console.error("Error registering", error);
+          
+          setLoginFailed(true);
+          //setMessage to the error thrown by the backend
+          setMessage(error.response.data.error.message);
+         
+        }
       };
 
 
@@ -115,6 +141,11 @@ const RegisterForm = ({onRegister})=>{
 
 
                 <button className="form-button">Submit</button>
+                {message && (
+          <p className={loginFailed ? "error-message" : "success-message"}>
+            {message}
+          </p>
+                )}
             </form>
         </div>
         </>

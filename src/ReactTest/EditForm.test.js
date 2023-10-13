@@ -5,16 +5,16 @@ import EditForm from "../EditForm";
 
 describe("EditForm", () => {
   // Define mock functions and data for testing
-  const mockOnEdit = jest.fn();
+  const mockOnEdit = jest.fn(); // Mock function to simulate an edit action
   const userData = {
     user: {
-      userid: 1,
+      userid: 1, // User ID for the test user
     },
   };
 
   test("renders the form and handles password change", async () => {
     render(
-      // Wrap EditForm in MemoryRouter
+      // Wrap EditForm in MemoryRouter to simulate routing
       <MemoryRouter>
         <EditForm userData={userData} onEdit={mockOnEdit} />
       </MemoryRouter>
@@ -24,6 +24,7 @@ describe("EditForm", () => {
     const currentPasswordInput = screen.getByLabelText("Current Password");
     const newPasswordInput = screen.getByLabelText("New Password");
 
+    // Simulate user input for current and new passwords
     fireEvent.change(currentPasswordInput, {
       target: { name: "currentPassword", value: "currentPass" },
     });
@@ -38,9 +39,9 @@ describe("EditForm", () => {
     const submitButton = screen.getByText("Submit");
     fireEvent.click(submitButton);
 
-    // Wait for the success message
+    // Wait for the success message to be displayed
     await waitFor(() =>
-      expect(screen.getByText("Password Successfully Changed.")).toBeInTheDocument()
+      expect(screen.getByText("Password successfully changed.")).toBeInTheDocument()
     );
 
     // Ensure that onEdit was called with the correct data
@@ -49,6 +50,4 @@ describe("EditForm", () => {
       userData.user.userid
     );
   });
-
- 
 });

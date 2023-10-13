@@ -7,13 +7,13 @@ import "./PetList.css";
 import defaultPhoto from "./images/animalPhoto.webp";
 import SearchForm from "./SearchForm";
 
-
+// Pet List component 
 const PetList = ({ currentUser }) => {
     const [pets, setPets] = useState([]);
     const [saveMessage, setSaveMessage] = useState(null); // State for displaying save status message
     const {type} = useParams();
    
-
+    // async function: gets Pets Object from the API backend 
     const fetchPets = async (location, gender) => {
       try {
         const response = await axios.get(`http://localhost:3002/pets/type/${type}`, {
@@ -41,7 +41,7 @@ const PetList = ({ currentUser }) => {
 
 
 
-  
+    // function handles adding a pet to the Users Fav petList
     const handlePetButtonClick = async (petId) => {
       
         if (currentUser === null) {
@@ -50,11 +50,12 @@ const PetList = ({ currentUser }) => {
             return;
         }
             const {user} = currentUser;
-            console.log("SOLE USER", user);
+            
             const userid = currentUser.user.userid;
             const token = currentUser.token;
           
       try {
+            //send GET request to /pets/id/petId that gets pet information from PET API
             const response = await axios.get(`http://localhost:3002/pets/id/${petId}`);
             
             const petDetails = response.data.animal;
@@ -78,7 +79,7 @@ const PetList = ({ currentUser }) => {
               user,
               contact : noContact
           }
-            console.log(petData);
+            
             const savedPet = await axios.post("http://localhost:3002/pets/add", petData);
   
         

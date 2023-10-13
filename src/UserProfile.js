@@ -11,59 +11,53 @@ const UserProfile = ({ userInfo }) => {
     navigate("/");
   }
 
+  // Define state variables
   const [favePets, setFavePets] = useState([]);
   const [userData, setUserData] = useState(userInfo);
   const [removeMessage, setRemoveMessage] = useState();
   const { userid } = userInfo.user;
-    
+  
+  // Function to fetch the user's favorite pets
   const fetchFavePets = async (userid) => {
-    const {user, token} = userInfo;
-      // console.log( "USER",user)
-      const SomeData = {token};
+    const { user, token } = userInfo;
     try {
       const response = await axios.get(`http://localhost:3002/pets/${userid}/favpets`, {
-          params : {token, user}
+        params: { token, user }
+      });
 
-      }   
-        
-      );
-  
-  
-      
       const data = response.data;
       setFavePets(data);
     } catch (e) {
       console.log("Error, fetching favorite pets", e);
     }
   };
-  
 
+  // Use the `useEffect` hook to update user data and favorite pets when `userInfo` changes
   useEffect(() => {
     setUserData(userInfo);
     fetchFavePets(userid);
   }, [userInfo, userid]);
-  
 
-  const handleButtonClick = async (petid)=>{
-      const {token } = userData;
-      const {user} = userData;
-      try{
-        const response = await axios.delete(`http://localhost:3002/pets/${petid}`);
-        
-        setFavePets((prevFavePets) => prevFavePets.filter((pet) => pet.petid !== petid));
-        setRemoveMessage(<p>Pet has been deleted</p>);
-        setTimeout(() => {
-          setRemoveMessage();
-        }, 2000);
-        
-       
-      } catch(e){
-        console.log(e);
-         setRemoveMessage(<p>Can't delete pet</p>)
-      }
-    
-
-  }; 
+  // Function to handle removing a favorite pet
+  const handleButtonClick = async (petid) => {
+    const { token } = userData;
+    const { user } = userData;
+    try {
+      const response = await axios.delete(`http://localhost:3002/pets/${petid}`);
+      
+      // Update the favorite pets list after successful removal
+      setFavePets((prevFavePets) => prevFavePets.filter((pet) => pet.petid !== petid));
+      setRemoveMessage(<p>Pet has been deleted</p>);
+      
+      // Clear the removal message after a delay
+      setTimeout(() => {
+        setRemoveMessage();
+      }, 2000);
+    } catch (e) {
+      console.log(e);
+      setRemoveMessage(<p>Can't delete pet</p>);
+    }
+  };
   // Render user data and favorite pets only if userInfo is not null
   return (
 

@@ -1,7 +1,12 @@
+//TESTS users Routes 
+
+//Set the environment to "test"
+
 process.env.NODE_ENV = "test";
 
+//import necessary dependencies 
 const assert = require('assert');
-const app = require("../app"); // Import your Express app
+const app = require("../app");
 const request = require('supertest');
 const users = require("./fakeDb.js");
 const db = require("../db");
@@ -11,6 +16,7 @@ const userSchema = require("../schemas/usersSchema.json");
 
 let testUser;
 
+//Insert user into the user DATABASE
 beforeEach(async () => {
   try {
     // Connect to the database
@@ -32,22 +38,25 @@ beforeEach(async () => {
   }
 });
 
+// Delete the test user from the database
 afterEach(async () => {
   try {
-    // Delete the test user from the database
+    
     await db.query(`DELETE FROM users`);
   } catch (error) {
     console.error('Error deleting test user:', error);
   }
 });
 
+
+// Close the database connection
 afterAll(async () => {
-  // Close the database connection
+  
   await db.end();
 });
 
 
-
+//send a GET request to get all users 
 describe('GET /users', () => {
   test('should return all users', async () => {
     const response = await request(app).get('/users');
@@ -61,8 +70,10 @@ describe('GET /users', () => {
   
 });
 
+// Tests for the 'GET /users/:id' route
 describe('GET /users/:id', () => {
   test('get a single user', async () => {
+     // Ensure the response status is 200, the response is an array, and it matches the expected user.
     const response = await request(app).get(`/users/${testUser.userid}`);
 
    
@@ -72,6 +83,7 @@ describe('GET /users/:id', () => {
   });
 
   test('respond with 404 if user not found', async () => {
+     // Ensure the response status is 200 (This may be an issue, it should be 404 if the user is not found)
     const response = await request(app).get(`/users/${testUser.userid}`);
 
    
@@ -83,6 +95,7 @@ describe('GET /users/:id', () => {
   
 });
 
+// Tests to on creating a user 
 describe("POST /users", ()=>{
 
 
@@ -121,10 +134,12 @@ describe("POST /users", ()=>{
 
 
 
-
+// Tests for the 'PATCH /user' route
 describe("PATCH /user", ()=>{
 
   test("Update a single user", async()=>{
+    // Send a PATCH request to update a user
+    // Ensure the response status is 200 and the response body matches the expected user data.
      const  res = await request(app).patch(`/users/${testUser.userid}`).send(
         {username: "wackboi12" , firstName: "James", lastName: "santos" }
       
@@ -142,6 +157,8 @@ describe("PATCH /user", ()=>{
 
     
   test("update a single user", async ()=>{
+    // Send a PATCH request to update a user that doesn't exist
+    // Ensure the response status is 404.
     const  res = await request(app).patch(`/users/0`).send(
       {username: "wackboi12" , firstName: "James", lastName: "santos" });
 
@@ -149,10 +166,11 @@ describe("PATCH /user", ()=>{
   })
 })
 
-
+//Test for the "DELETE" /users route
 describe("DELETE/user", ()=>{
 
   test("DELETE a single user", async()=>{
+    //send a DELETE request to delete user from the DATABASE
      const  res = await request(app).delete(`/users/${testUser.userid}`);
       
       expect(res.status).toBe(200);

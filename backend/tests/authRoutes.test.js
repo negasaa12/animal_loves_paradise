@@ -1,5 +1,10 @@
+
+//TESTS authorization for login in and registering
+
+//Set the environment to "test"
 process.env.NODE_ENV = "test";
 
+//Import require module and dependencies 
 const assert = require('assert');
 const app = require("../app"); // Import your Express app
 const request = require('supertest');
@@ -10,6 +15,7 @@ const jwt = require("jsonwebtoken");
 
 let testUserToken;
 
+// before each test, insert a test user into the database
 beforeEach( async function(){
 
     const hashedPassword = await bcrypt.hash("secret", BCRYPT_WORK_FACTOR);
@@ -26,12 +32,13 @@ beforeEach( async function(){
             testUserToken = jwt.sign(testUser, SECRET_KEY);
 });
 
-
+//after each test, delete all user from the data base
 afterEach(async function (){
 
     await db.query("DELETE FROM users");
 });
 
+// after all tests, close the database connection
 afterAll(async () => {
     // Close the database connection
     await db.end();
@@ -52,6 +59,8 @@ describe('POST /register', () => {
   };
 
   test('return {username, password}', async function () {
+
+    //hash  the plain password
     const hashedPassword = await new Promise((resolve, reject) => {
       bcrypt.hash(plainPassword, BCRYPT_WORK_FACTOR, (err, hash) => {
         if (err) {
@@ -62,8 +71,8 @@ describe('POST /register', () => {
       });
     });
   
-    console.log('Hashed Password:', hashedPassword); // Add this line to log the hashed password
-  
+    
+    //send a POST request to the /register with the userObject
     const response = await request(app).post('/register').send(userObject);
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('username', 'john_doe');
@@ -72,6 +81,7 @@ describe('POST /register', () => {
   
 
   test('missing a username or password', async function () {
+    //send a POST request to the /register route with incomplete userObject
     const res = await request(app).post('/register').send({
       firstName: 'John',
       lastName: 'Doe',
@@ -86,6 +96,7 @@ describe('POST /register', () => {
 describe("POST /login", function(){
 
     test("return logged in msg", async function(){
+       // Send a POST request to the /login route with the test user's credentials
         const response = await request(app).post("/login").send({username: "testuser" ,password :"secret"});
 
         expect(response.status).toBe(200);
@@ -94,12 +105,14 @@ describe("POST /login", function(){
     })
 
     test(" fails with wrong password", async function(){
+        //send a POST request to /login with incorrect username/password
         const response = await request(app).post("/login").send({username: "testuser" ,password :"WRONG"});
 
         expect(response.status).toBe(400);
     })
 
     test("return logged in msg with a valid JWT token", async function(){
+      //send a POSt reques to /login with a valid JWT token
       const response = await request(app).post("/login").send({username: "testuser", password: "secret"});
   
       expect(response.status).toBe(200);

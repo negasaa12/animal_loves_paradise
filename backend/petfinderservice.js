@@ -22,7 +22,7 @@ async function searchPets(query) {
   }
 }
 
-
+//get an acess token from the petfinder api website
 async function getAccessToken() {
     try {
       const response = await axios.post(
