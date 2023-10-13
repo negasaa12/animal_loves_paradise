@@ -1,9 +1,22 @@
-# Adoption App for Animal Lovers - Project Proposal
+# Adoption App for Animal Lovers 
 
 
 
 ## Project Focus
-Our primary focus lies in crafting an appealing and user-friendly front-end interface. We aim to ensure smooth navigation and interaction, prioritizing the user's experience throughout the adoption journey.
+Our primary focus lies in crafting an appealing and user-friendly front-end interface. We aim to ensure smooth navigation and interaction, prioritizing the user's experience while they look and find a pet they wish to adopt.
+
+
+## Features Implemented
+- **User Registration and Login**: Create personalized profiles and ensure user account security.
+- **Animal Catalog**: Browse pet profiles with images, descriptions, and adoption availability status.
+- **User-Pet Interaction**: Mark pets as favorites and record adoption history.
+- **Filter and Search**: Search and filter pets based on various attributes.
+- **Profile Management**: Users can view and update their profiles.
+- **Secure Storage**: User-sensitive data is securely stored using encryption techniques.
+- **CRUD Operations**: Basic Create, Read, Update, and Delete operations for pets and user profiles.
+- **Authentication**: Ensures secure access to user accounts.
+
+**Reasoning**: These features were chosen to create a comprehensive platform that enhances the pet adoption experience for users while promoting responsible pet ownership.
 
 ## Application Type
 The "Adoption App for Animal Lovers" will be a responsive website, accessible across various devices. This ensures users can easily engage with the platform on their preferred devices.
@@ -26,6 +39,12 @@ We will design a structured schema with dedicated tables for animals. Key attrib
 ### API Challenges
 Challenges related to data quality, particularly regarding breed information, will be addressed through rigorous data validation and cleaning procedures.
 
+## Technology Stack
+- Frontend: React
+- Backend: Node.js
+- Postgresql
+  
+
 ### Security Measures
 User-sensitive information, including passwords and personal details, will be securely stored using encryption techniques to ensure privacy.
 
@@ -36,10 +55,10 @@ The application will offer user registration, secure login, personalized profile
 Users will follow a seamless journey - from registration and login to exploring the animal catalog, applying filters, and ultimately selecting pets for adoption. Adopted pets will be featured in the user's profile.
 
 ### Enhanced Features
-In addition to basic CRUD operations, our app will provide personalized profiles, Authentication,  and insights into seeing what animal is right for you.
+In addition to basic CRUD operations, our app will provide  profile, Authentication,  and insights into seeing what animal is right for you.
 
 ## Conclusion
-The "Adoption App for Animal Lovers" project amalgamates compassion with technology. By harnessing the capabilities of React and Node.js, we aim to build an impactful platform that transcends functionality, delivering a transformative experience for both animals and their future owners. We embark on this journey with excitement, ready to create a positive change in the world of pet adoption.
+The "Adoption App for Animal Lovers" project amalgamates compassion with technology. By harnessing the capabilities of React and Node.js, we aim to build an impactful platform that transcends functionality, delivering a transformative experience for both animals and their future owners.
 
 
 
