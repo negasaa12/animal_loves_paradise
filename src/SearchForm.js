@@ -12,7 +12,7 @@ const SearchForm = ({ onSearch }) => {
   // Use state to manage form data and error state
   const [formData, setFormData] = useState(initial_State);
   const [loginFailed, setLoginFailed] = useState(false);
-
+  const[errorMessage ,setErrorMessage] = useState("");
   // Function to handle input changes and update the form data
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,14 +28,16 @@ const SearchForm = ({ onSearch }) => {
 
     // Extract search parameters from the form data
     const { location, gender } = formData;
-
+    
+    
     // Call the provided onSearch function with search parameters
     const foundPet = onSearch(location, gender);
 
-    if (foundPet) {
-      // If search was successful, reset the form data
+    if(foundPet){
+     
       setFormData(initial_State);
     }
+    
   };
 
   return (
@@ -51,19 +53,17 @@ const SearchForm = ({ onSearch }) => {
             className="search-input"
             placeholder="City, State or Postal Code"
           />
-          <select
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-            className="search-input"
-            placeholder="Gender"
-          >
-            {/* <option value="">Select Gender</option> */}
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            
-          
-          </select>
+           <div className="select-container">
+        <select
+          name="gender"
+          value={formData.gender}
+          onChange={handleChange}
+          className="search-input"
+        >
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
         </div>
         <button className="search-button" type="submit">
           Search

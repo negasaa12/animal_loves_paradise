@@ -16,8 +16,30 @@
     justify-content: center;
     align-items: center;
   }
-  
-  /* Style for the search input container */
+
+.select-container select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+
+.select-container select option {
+  background-color: #51c473;
+  color: #000;
+  font-size: 16px;
+  padding: 10px;
+}
+
+/* Style the selected option */
+.select-container select option:checked {
+  background-color: #bace71; 
+   
+}
+
+ 
   .search-input-container {
     display: flex;
     gap: 10px;

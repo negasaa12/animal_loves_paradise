@@ -13,6 +13,7 @@ const axios = require("axios");
 const bcrypt = require('bcrypt'); // For password hashing
 const { searchPets, getAccessToken } = require("../petfinderservice");
 const { ensuredLoggedIn, authenticateJWT, authenticateJWTQuery, ensuredLoggedInQuery } = require("../middleware");
+const ExpressError = require("../expressError");
 
 /**
  * @function GET /:userID/favpets
@@ -56,11 +57,14 @@ router.get("/:userID/favpets", authenticateJWTQuery, ensuredLoggedInQuery, async
  * @throws {ExpressError} - If there is an error while retrieving pet data.
  * @returns {Object} - JSON response with the retrieved pet data.
  */
+
 router.get("/type/:type", async (req, res, next) => {
     try {
         const accessToken = await getAccessToken();
         const { type } = req.params;
         const { gender, location } = req.query;
+        
+        
         const response = await axios.get("https://api.petfinder.com/v2/animals", {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -71,11 +75,18 @@ router.get("/type/:type", async (req, res, next) => {
                 location,
             }
         });
+                    
 
+        if (!response.data.error) {
+            // If there are no animals in the response throw an error
+           console.log(response.data);
+            return res.json({ message: "No pets found for this criteria." });
+        }
         const petData = response.data;
+        
         return res.json(petData.animals);
     } catch (e) {
-        return next(e);
+       return  next(e);
     }
 });
 
