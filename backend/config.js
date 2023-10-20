@@ -13,7 +13,7 @@ const BCRYPT_WORK_FACTOR = 12;
 
 //Petfinder API keys & SECRET
 let petfinderApiKey;
-let petfinderApiSecret;  
+let petfinderApiSecret;
 // Export the configuration variables for use in other modules. 
 
 module.exports = {

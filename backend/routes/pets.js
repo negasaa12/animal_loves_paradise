@@ -76,10 +76,9 @@ router.get("/type/:type", async (req, res, next) => {
             }
         });
                     
-
-        if (!response.data.error) {
-            // If there are no animals in the response throw an error
-           console.log(response.data);
+        
+        if (!response.data || response.data.animals.length === 0) {
+            // If there are no animals in the response, return a specific message.
             return res.json({ message: "No pets found for this criteria." });
         }
         const petData = response.data;
