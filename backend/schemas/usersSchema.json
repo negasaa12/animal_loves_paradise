@@ -1,15 +1,15 @@
 {
-    "type": "object",
-    "properties": {
-      "userID": { "type": "integer" },
-      "username": { "type": "string", "minLength": 1, "maxLength": 255 },
-      "firstName": { "type": "string", "minLength": 1, "maxLength": 255 },
-      "lastName": { "type": "string", "minLength": 1, "maxLength": 255 },
-      "email": { "type": "string", "minLength": 1, "maxLength": 255 },
-      "password": { "type": "string" },
-      "location": { "type": "string", "maxLength": 255 },
-      "contact": { "type": "string" }
-    },
-    "required": ["userID", "username", "firstName", "lastName", "email"]
-  }
-  
+  "type": "object",
+  "properties": {
+    "userID": { "type": "integer" },
+    "username": { "type": "string", "minLength": 1, "maxLength": 255 },
+    "firstName": { "type": "string", "minLength": 1, "maxLength": 255 },
+    "lastName": { "type": "string", "minLength": 1, "maxLength": 255 },
+    "email": { "type": "string", "minLength": 1, "maxLength": 255 },
+    "password": { "type": "string" },
+    "location": { "type": "string", "maxLength": 255 },
+    "contact": { "type": "string" },
+    "admin": { "type": "boolean" }
+  },
+  "required": ["userID", "username", "firstName", "lastName", "email"]
+}

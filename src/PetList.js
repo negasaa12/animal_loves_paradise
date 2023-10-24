@@ -9,6 +9,7 @@ import SearchForm from "./SearchForm";
 
 // Pet List component 
 const PetList = ({ currentUser }) => {
+  
     const [pets, setPets] = useState([]);
     const [saveMessage, setSaveMessage] = useState(null); // State for displaying save status message
     const {type} = useParams();
@@ -64,6 +65,7 @@ const PetList = ({ currentUser }) => {
             const mediumPhoto = photos.length === 0 ? defaultPhoto : photos[0].medium  ;
             const noDescripition = description === null ? "no description": description;
             const noContact = contact.email === null ? "no contact" : contact.email;
+            
             const petData = {
               name,
               age,

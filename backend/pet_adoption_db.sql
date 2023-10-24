@@ -17,14 +17,15 @@ CREATE TABLE users
    email VARCHAR(255) NOT NULL,
    password TEXT,
    location VARCHAR(255),
-   contact TEXT
+   contact TEXT,
+   admin BOOLEAN DEFAULT false
 );
+
 
 CREATE TABLE pets
 (
     petId SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
-
     breed TEXT NOT NULL,
     age TEXT NOT NULL,
     size TEXT NOT NULL,

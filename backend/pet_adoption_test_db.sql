@@ -16,7 +16,8 @@ CREATE TABLE users
    email VARCHAR(255) NOT NULL,
    password TEXT,
    location VARCHAR(255),
-   contact TEXT
+   contact TEXT,
+   admin BOOLEAN DEFAULT false 
 );
 
 CREATE TABLE pets

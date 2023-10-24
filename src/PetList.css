@@ -68,24 +68,24 @@
 .save-message {
   max-width: 700px;
   margin: 0 auto;
-  background-color: #57c971; /* Green background color */
-  color: #fff; /* White text color */
-  padding: 10px 20px; /* Padding around the message */
-  border-radius: 5px; /* Rounded corners */
+  background-color: #57c971; 
+  color: #fff; 
+  padding: 10px 20px; 
+  border-radius: 5px;
   font-size: 16px;
-  margin-bottom: 10px; /* Add some space below the message */
-  text-align: center; /* Center-align the text */
+  margin-bottom: 10px; 
+  text-align: center; 
 }
 
 .error-message {
   max-width: 700px;
   margin: 0 auto;
-  background-color: #dc3545 !important; /* Red background color with !important */
+  background-color: #dc3545 !important; 
   color: white !important; /* White text color */
-  padding: 10px 20px; /* Padding around the message */
-  border-radius: 5px; /* Rounded corners */
+  padding: 10px 20px;
+  border-radius: 5px; 
   font-size: 16px;
-  margin-bottom: 10px; /* Add some space below the message */
-  text-align: center; /* Center-align the text */
+  margin-bottom: 10px; 
+  text-align: center; 
 }
 

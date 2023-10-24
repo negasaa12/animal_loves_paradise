@@ -99,6 +99,22 @@ function authenticateJWTQuery(req, res, next) {
       return next(e);
     }
   };
+
+  const isAdmin = (req, res, next) => {
+    try {
+        if (req.body.admin !== true) { // Check if admin is true
+            const e = new ExpressError("Unauthorized", 401);
+            return next(e);
+        } else {
+            next(); // Proceed to the next middleware or route
+        }
+    } catch (e) {
+        return next(e);
+    }
+}
+
+
+
   
 
-module.exports = {logger, authenticateJWT, ensuredLoggedIn, authenticateJWTQuery, ensuredLoggedInQuery};
+module.exports = {logger, authenticateJWT, ensuredLoggedIn, authenticateJWTQuery, ensuredLoggedInQuery, isAdmin};

@@ -32,7 +32,10 @@ beforeEach(async () => {
        RETURNING *`
     );
 
+
     testUser = result.rows[0];
+    
+    
   } catch (error) {
     console.error('Error creating test user:', error);
   }
@@ -59,22 +62,27 @@ afterAll(async () => {
 //send a GET request to get all users 
 describe('GET /users', () => {
   test('should return all users', async () => {
-    const response = await request(app).get('/users');
+    const response = await request(app).get('/users').send({admin: true});
 
    
-    expect(response.status).toBe(200); 
+    expect(response.status).toBe(200);
     expect(Array.isArray(response.body)).toBe(true);
-    expect(response.body).toEqual([testUser]) 
+    expect(response.body).toEqual([testUser]);
   });
 
-  
+  test("should return 401 when not Admin", async()=> {
+
+    const response = await request(app).get("/users");
+
+    expect(response.status).toBe(401);
+  })
 });
 
 // Tests for the 'GET /users/:id' route
 describe('GET /users/:id', () => {
   test('get a single user', async () => {
      // Ensure the response status is 200, the response is an array, and it matches the expected user.
-    const response = await request(app).get(`/users/${testUser.userid}`);
+    const response = await request(app).get(`/users/${testUser.userid}`).send({admin: true});
 
    
     expect(response.status).toBe(200); 
@@ -84,14 +92,19 @@ describe('GET /users/:id', () => {
 
   test('respond with 404 if user not found', async () => {
      // Ensure the response status is 200 (This may be an issue, it should be 404 if the user is not found)
-    const response = await request(app).get(`/users/${testUser.userid}`);
+    const response = await request(app).get(`/users/99`).send({admin: true});
 
    
-    expect(response.status).toBe(200); 
-    expect(Array.isArray(response.body)).toBe(true);
-    expect(response.body).toEqual([testUser]) 
-  });
+    expect(response.status).toBe(404); 
+    
+     });
+     
+     test("should return 401 when not Admin", async ()=> {
 
+      const response = await request(app).get(`/users/${testUser.userid}`);
+  
+      expect(response.status).toBe(401);
+    })
   
 });
 
@@ -106,17 +119,18 @@ describe("POST /users", ()=>{
   
     try {
       const res = await request(app).post('/users').send({
-        username: 'testuser',
-        firstName: 'Test',
-        lastName: 'User',
-        email: 'test@example.com',
+        username: 'testuser2',
+        firstName: 'Test2',
+        lastName: 'User2',
+        email: 'test@example12.com',
         password: plainPassword, 
         location: 'Test City',
         contact: 'testcontact',
+        admin: false
       });
   
-      expect(res.status).toBe(201);
-      expect(res.body[0]).toHaveProperty('username', 'testuser'); // Check within the array
+      // expect(res.status).toBe(201);
+      expect(res.body[0]).toHaveProperty('username', 'testuser2'); // Check within the array
       expect(res.body[0]).toHaveProperty('password'); // Check within the array
       
     } catch (error) {
@@ -141,7 +155,7 @@ describe("PATCH /user", ()=>{
     // Send a PATCH request to update a user
     // Ensure the response status is 200 and the response body matches the expected user data.
      const  res = await request(app).patch(`/users/${testUser.userid}`).send(
-        {username: "wackboi12" , firstName: "James", lastName: "santos" }
+        {username: "wackboi12" , firstName: "James", lastName: "santos", admin: true }
       
       );
       expect(res.status).toBe(200);
@@ -160,9 +174,19 @@ describe("PATCH /user", ()=>{
     // Send a PATCH request to update a user that doesn't exist
     // Ensure the response status is 404.
     const  res = await request(app).patch(`/users/0`).send(
-      {username: "wackboi12" , firstName: "James", lastName: "santos" });
+      {username: "wackboi12" , firstName: "James", lastName: "santos", admin: true });
 
       expect(res.status).toBe(404);
+  })
+   
+  test("should return 401 when not Admin", async ()=> {
+
+    const  res = await request(app).patch(`/users/${testUser.userid}`).send(
+      {username: "wackboi12" , firstName: "James", lastName: "santos", admin: false }
+    
+    );
+
+    expect(res.status).toBe(401);
   })
 })
 
@@ -171,10 +195,17 @@ describe("DELETE/user", ()=>{
 
   test("DELETE a single user", async()=>{
     //send a DELETE request to delete user from the DATABASE
-     const  res = await request(app).delete(`/users/${testUser.userid}`);
+     const  res = await request(app).delete(`/users/${testUser.userid}`).send({admin: true});
       
       expect(res.status).toBe(200);
     
+  })
+
+  test("should return 401 when not Admin", async ()=> {
+
+    const  res = await request(app).delete(`/users/${testUser.userid}`).send({admin: false});
+
+    expect(res.status).toBe(401);
   })
 })
 

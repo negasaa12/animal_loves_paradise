@@ -96,6 +96,7 @@ router.get("/type/:type", async (req, res, next) => {
  * @throws {ExpressError} - If the pet is not found or there's an internal server error.
  * @returns {Object} - JSON response with the retrieved pet data.
  */
+
 router.get("/id/:id", async (req, res, next) => {
     try {
         const accessToken = await getAccessToken();
