@@ -174,7 +174,7 @@ router.post("/add", authenticateJWT, ensuredLoggedIn, async (req, res, next) => 
  * @throws {ExpressError} - If there's an error while deleting the pet.
  * @returns {Object} - JSON response indicating the successful deletion of the pet.
  */
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", authenticateJWT, ensuredLoggedIn, async (req, res, next) => {
     try {
         // Delete related records in user_pet_relationship first
         await db.query("DELETE FROM user_pet_relationship WHERE PetID = $1", [req.params.id]);

@@ -12,30 +12,49 @@ const users = require("./fakeDb.js");
 const db = require("../db");
 const bcrypt = require("bcrypt");
 const userSchema = require("../schemas/usersSchema.json");
-
+const jwt = require("jsonwebtoken");
+const {BCRYPT_WORK_FACTOR, SECRET_KEY} = require("../config");
 
 let testUser;
-
+let testUserToken;
+let testUserTwo;
+let testUserTwoToken;
 //Insert user into the user DATABASE
 beforeEach(async () => {
   try {
     // Connect to the database
+    const plainPassword = 'testpassword';
+    const hashedPassword = await bcrypt.hash(plainPassword, 10);
+
     const result = await db.query(
       `INSERT INTO users (username, firstname, lastname, email, password, location, contact)
        VALUES ('testuser',
                'Test',
                'User',
                'test@example.com',
-               'testpassword',
+               $1,
                'Test City',
                'testcontact')
-       RETURNING *`
+       RETURNING *`,
+      [hashedPassword]  // Pass the hashed password as a parameter
     );
 
+    const user = await db.query(`
+      INSERT INTO users (username, firstname, lastname, email, password, location, contact)
+      VALUES ('testuser22',
+              'Test',
+              'User',
+              'test@example.com',
+              $1, 
+              'Test City',
+              'testcontact')
+      RETURNING *
+    `, [hashedPassword]);  // Pass the hashed password as a parameter
 
+    testUserTwo = user.rows[0];
     testUser = result.rows[0];
-    
-    
+    testUserToken = jwt.sign(testUser, SECRET_KEY);
+    testUserTwoToken = jwt.sign(testUserTwo, SECRET_KEY);
   } catch (error) {
     console.error('Error creating test user:', error);
   }
@@ -67,7 +86,7 @@ describe('GET /users', () => {
    
     expect(response.status).toBe(200);
     expect(Array.isArray(response.body)).toBe(true);
-    expect(response.body).toEqual([testUser]);
+    expect(response.body).toEqual([testUser, testUserTwo]);
   });
 
   test("should return 401 when not Admin", async()=> {
@@ -210,3 +229,17 @@ describe("DELETE/user", ()=>{
 })
 
 
+describe("Changing User Password", ()=>{
+
+  test("PATCH user's Password", async ()=>{
+
+    //send a PATCH request to change password of User
+      const res = await request(app).patch(`/users/password/${testUserTwo.userid}`).send({ 
+         currentPassword:"testpassword" , newPassword: "newpassword" , token : testUserTwoToken, user: testUserTwo});
+          
+      expect(res.status).toBe(200);
+  })
+
+
+
+})

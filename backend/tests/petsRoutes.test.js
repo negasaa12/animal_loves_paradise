@@ -188,10 +188,17 @@ beforeEach(async () => {
   //Deletes pets from pets database
 describe("DELETE /pets", () => {
     test("DELETE a single pet", async () => {
-      const res = await request(app).delete(`/pets/${testPet.petid}`); 
+      const res = await request(app).delete(`/pets/${testPet.petid}`).send({token: testUserToken, user: testUser}); 
   
       expect(res.status).toBe(200);
     });
+  
+    test("DELETE a single pet", async () => {
+      const res = await request(app).delete(`/pets/${testPet.petid}`); 
+  
+      expect(res.status).toBe(401);
+    });
+    
   });
   
 

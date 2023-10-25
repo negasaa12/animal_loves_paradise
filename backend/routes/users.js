@@ -11,7 +11,7 @@ const jsonSchema = require("json-schema");
 const userSchema = require("../schemas/usersSchema.json");
 const bcrypt = require('bcrypt'); // For password hashing
 const ExpressError = require("../expressError");
-const { isAdmin }= require("../middleware");
+const { isAdmin, ensuredLoggedIn, authenticateJWT }= require("../middleware");
 
 
 /**
@@ -118,7 +118,8 @@ router.patch("/:id", isAdmin, async (req, res, next) => {
  * @throws {ExpressError} - If the user with the specified ID is not found, the current password is invalid, or if there's an error while updating the password.
  * @returns {Object} - JSON response indicating the successful update of the user's password.
  */
-router.patch("/password/:id",  async (req, res, next) => {
+router.patch("/password/:id", authenticateJWT, ensuredLoggedIn, async (req, res, next) => {
+
     try {
         const id = req.params.id;
         const { currentPassword, newPassword } = req.body;
